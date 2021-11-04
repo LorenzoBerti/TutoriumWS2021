@@ -3,8 +3,12 @@
  */
 package com.lorenzoberti.session2;
 
+import java.util.function.DoubleUnaryOperator;
+
 import net.finmath.functions.NormalDistribution;
+import net.finmath.plots.Plot2D;
 import net.finmath.randomnumbers.MersenneTwister;
+
 
 /**
  * @author Lorenzo Berti
@@ -95,5 +99,19 @@ public class BrownianMotionSimple implements BrownianMotionInterface {
 
 	}
 
+	@Override
+	public void printPath(int path) {
+
+		DoubleUnaryOperator trajectory = t -> {
+			return (getSpecificValue(path, (int) t));
+		};
+
+		Plot2D plot = new Plot2D(0, numberOfTimeSteps, numberOfTimeSteps + 1, trajectory);
+		plot.setTitle("Brownian motion path");
+		plot.setXAxisLabel("Time");
+		plot.setYAxisLabel("Brownian motion");
+		plot.show();
+
+	}
 
 }

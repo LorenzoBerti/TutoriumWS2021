@@ -29,12 +29,14 @@ public class BrownianMotionCheck {
 		// check the average (it should be 0)
 		System.out.println("The average is: " + getAverage(process));
 
-		// check the variance (it must be == time)
+		// check the variance (it should be == time)
 		System.out.println("The variance is: " + getVariance(process));
 
-		// check the covariance (it must be min(s,t)
+		// check the covariance (it should be min(s,t))
 		double[] process2 = brownian.getProcessAtTimeIndex(8);
 		System.out.println("The covariance is: " + getCovariance(process, process2));
+
+		brownian.printPath(10);
 
 	}
 

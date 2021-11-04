@@ -45,6 +45,12 @@ public interface BrownianMotionInterface {
 	 */
 	double getSpecificValue(int path, int timeIndex);
 	
+	/**
+	 * Print the specific path of the Brownian Motion
+	 * 
+	 * @param path
+	 */
+	void printPath(int path);
 
 
 }

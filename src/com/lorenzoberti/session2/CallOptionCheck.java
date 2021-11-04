@@ -33,7 +33,7 @@ public class CallOptionCheck {
 		double riskFreeRate = 0.05;
 		double sigma = 0.2;
 		
-		// Monte Carlo simulation
+		// Monte Carlo simulation parameter
 		int numberOfSimulation = 100000;
 		int numberOfTimeSteps = 100;
 		int timeStep = 1;
