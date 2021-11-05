@@ -12,7 +12,7 @@ public class BrownianMotionSimple implements BrownianMotionInterface {
 	private int numberOfPaths;
 	private int numberOfTimeSteps;
 
-	// the \delta of the time discretization; you can assume it constant.
+	// the Δ of the time discretization; assume it constant.
 	private double timeStep;
 
 	// this matrix stores the paths of the Brownian motion, i.e. it should contains
@@ -81,7 +81,7 @@ public class BrownianMotionSimple implements BrownianMotionInterface {
 		// i.e. generate the values of the Brownian motion and fill them in the matrix
 		// wholePaths[][].
 		// Hint: use the property of the Brownian motion: W(t_j) = W(t_j-1) +
-		// \sqrt(delta) * N(0,1)
+		// \sqrt(Δ) * N(0,1)
 
 			}
 

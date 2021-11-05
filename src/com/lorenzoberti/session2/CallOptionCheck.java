@@ -45,9 +45,14 @@ public class CallOptionCheck {
 		double evaluationTime = 0;
 
 		double[] finalValue = new double[numberOfSimulation];
-		BrownianMotionInterface brownian = new BrownianMotionSimple(numberOfSimulation, numberOfTimeSteps, timeStep);
-		double[] lastBrownianValue = brownian.getProcessAtTimeIndex(maturity);
 		
+		// Brownian motion constructor
+		// ???
+
+		// fill the values of the Brownian motion that you have to use in order to
+		// simulate the process
+		double[] lastBrownianValue;
+
 		// Create an array storing all the value of S(T)
 		for(int i = 0; i < numberOfSimulation; i++) {
 
@@ -64,6 +69,8 @@ public class CallOptionCheck {
 		// Now get the price by using the Monte Carlo method
 		double price = 0;
 		
+		// implement the Monte Carlo method here
+
 		// discounting...
 		price = price * Math.exp(-riskFreeRate * maturity);
 
@@ -84,10 +91,10 @@ public class CallOptionCheck {
 		double initialTime = 0;
 		int seed = 3013;
 
-		// we create the model
+		// create the model
 		ProcessModel blackScholesModel = new BlackScholesModel(initialValue, riskFreeRate, sigma);
 
-		// the discretization discretization of the interval
+		// discretization of the interval
 		TimeDiscretization timeDiscretization = new TimeDiscretizationFromArray(initialTime, numberOfTimeSteps,
 				timeStep);
 
@@ -95,7 +102,7 @@ public class CallOptionCheck {
 		BrownianMotion brownianMotion = new BrownianMotionFromMersenneRandomNumbers(timeDiscretization, 1,
 				numberOfSimulation, seed);
 
-		// generate the process in a very general way
+		// generate the process
 		MonteCarloProcess process = new EulerSchemeFromProcessModel(blackScholesModel, brownianMotion);
 
 		MonteCarloAssetModel blackScholesMonteCarloModel = new MonteCarloAssetModel(process);

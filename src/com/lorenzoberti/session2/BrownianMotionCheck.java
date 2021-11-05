@@ -24,8 +24,8 @@ public class BrownianMotionCheck {
 		// we create an object of type BrownianMotionInterface
 		BrownianMotionInterface brownian = new BrownianMotionSimple(numberOfPaths, numberOfTimeSteps, timeStep);
 
-		// we take the process at a given time (just implement the right method)
-		// double[] process1 = ?;
+		// we take the process at a given time
+		// double[] process1 = ?; (just implement the right method)
 
 		// check the average (it should be 0)
 		// System.out.println("The average is: " + getAverage(process1));

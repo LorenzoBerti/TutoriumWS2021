@@ -4,6 +4,13 @@
 package com.lorenzoberti.session2;
 
 /**
+ * This interface provides the discretization of a one-dimensional Brownian
+ * motion. The Brownian motion is simulated for a time discretization
+ * (t_0,t_1,..,t_n), supposing t_i-t_{i-1} = Δ, i.e., constant for any i =
+ * 1,..,n. Note: Here we use array of double to make life easier, but of course
+ * it could be done in a more efficient way, i.e. using RandomVariable from the
+ * finmath library...
+ * 
  * @author Lorenzo Berti
  *
  */
@@ -18,8 +25,8 @@ public interface BrownianMotionInterface {
 	double[][] getPaths();
 
 	/**
-	 * This method returns the an array representing the value of the Brownian
-	 * motion at a specific time
+	 * This method returns an array representing the value of the Brownian motion at
+	 * a specific time
 	 * 
 	 * @param timeIndex
 	 * @return a Random Variable which represents the Brownian motion at a given
