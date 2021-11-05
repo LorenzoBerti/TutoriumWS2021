@@ -36,7 +36,6 @@ public class BrownianMotionCheck {
 		double[] process2 = brownian.getProcessAtTimeIndex(8);
 		System.out.println("The covariance is: " + getCovariance(process, process2));
 
-		brownian.printPath(10);
 
 	}
 

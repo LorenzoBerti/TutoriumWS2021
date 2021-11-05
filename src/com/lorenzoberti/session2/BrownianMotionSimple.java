@@ -3,13 +3,6 @@
  */
 package com.lorenzoberti.session2;
 
-import java.util.function.DoubleUnaryOperator;
-
-import net.finmath.functions.NormalDistribution;
-import net.finmath.plots.Plot2D;
-import net.finmath.randomnumbers.MersenneTwister;
-
-
 /**
  * @author Lorenzo Berti
  *
@@ -19,8 +12,14 @@ public class BrownianMotionSimple implements BrownianMotionInterface {
 	private int numberOfPaths;
 	private int numberOfTimeSteps;
 	private double timeStep;
+
+	// this matrix stores the paths of the Brownian motion, i.e. it should contains
+	// all the values of the Brownian motion for each path (the columns could store
+	// the paths and
+	// the rows the respective values, or viceversa.
 	private double wholePaths[][];
 
+	// Constructor
 	public BrownianMotionSimple(int numberOfPaths, int numberOfTimeSteps, double timeStep) {
 		super();
 		this.numberOfPaths = numberOfPaths;
@@ -31,7 +30,7 @@ public class BrownianMotionSimple implements BrownianMotionInterface {
 	@Override
 	public double[][] getPaths() {
 		// lazy inizialization: we inizialize it only one time
-		// but this is would not be a problem because everything is random
+		// (but this is would not be a problem because everything is random)
 		if (wholePaths == null) {
 			generate();
 		}
@@ -77,41 +76,16 @@ public class BrownianMotionSimple implements BrownianMotionInterface {
 	// Private! The user does not need this method: it is inside the class
 	private void generate() {
 
-		wholePaths = new double[numberOfPaths][numberOfTimeSteps + 1];
-
-		// we inizialize the entire first column at 0 (the Brownian motion starts in 0)
-		for (int i = 0; i < numberOfPaths; i++) {
-			wholePaths[i][0] = 0;
-		}
-		MersenneTwister mersenne = new MersenneTwister(3083);
-		// now we generate the Brownian motion path by path
-		for (int i = 0; i < numberOfPaths; i++) {
-			for (int j = 1; j < numberOfTimeSteps + 1; j++) {
-			// we have to generate the value of the Normal distribution
-			double random = mersenne.nextDouble();
-			// double random = Math.random();
-			double normal = NormalDistribution.inverseCumulativeDistribution(random);
-			wholePaths[i][j] = wholePaths[i][j - 1] + Math.sqrt(timeStep) * normal;
+		// This method should generate the whole sample path of the Brownian motion,
+		// i.e. generate the values of the Brownian motion and fill them in the matrix
+		// wholePaths[][].
+		// Hint: use the property of the Brownian motion: W(t_j) = W(t_j-1) +
+		// \sqrt(delta) * N(0,1)
 
 			}
 
-		}
 
-	}
 
-	@Override
-	public void printPath(int path) {
 
-		DoubleUnaryOperator trajectory = t -> {
-			return (getSpecificValue(path, (int) t));
-		};
-
-		Plot2D plot = new Plot2D(0, numberOfTimeSteps, numberOfTimeSteps + 1, trajectory);
-		plot.setTitle("Brownian motion path");
-		plot.setXAxisLabel("Time");
-		plot.setYAxisLabel("Brownian motion");
-		plot.show();
-
-	}
 
 }
