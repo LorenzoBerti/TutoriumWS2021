@@ -20,7 +20,7 @@ public class BrownianMotionCheck {
 
 
 
-		// we create an object of type BrownianMotion
+		// we create an object of type BrownianMotionInterface
 		BrownianMotionInterface brownian = new BrownianMotionSimple(numberOfPaths, numberOfTimeSteps, timeStep);
 
 		// we take the process at a given time
