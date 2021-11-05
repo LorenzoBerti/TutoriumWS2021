@@ -4,6 +4,9 @@
 package com.lorenzoberti.session2;
 
 /**
+ * This class checks if the implementation of your Brownian motion is good, i.e.
+ * if the properties of the Brownian motion are satisfied.
+ * 
  * @author Lorenzo Berti
  *
  */
@@ -18,27 +21,31 @@ public class BrownianMotionCheck {
 	 */
 	public static void main(String[] args) {
 
-
-
 		// we create an object of type BrownianMotionInterface
 		BrownianMotionInterface brownian = new BrownianMotionSimple(numberOfPaths, numberOfTimeSteps, timeStep);
 
-		// we take the process at a given time
-		double[] process = brownian.getProcessAtTimeIndex(10);
+		// we take the process at a given time (just implement the right method)
+		// double[] process1 = ?;
 
 		// check the average (it should be 0)
-		System.out.println("The average is: " + getAverage(process));
+		// System.out.println("The average is: " + getAverage(process1));
 
 		// check the variance (it should be == time)
-		System.out.println("The variance is: " + getVariance(process));
+		// System.out.println("The variance is: " + getVariance(process1));
 
-		// check the covariance (it should be min(s,t))
-		double[] process2 = brownian.getProcessAtTimeIndex(8);
-		System.out.println("The covariance is: " + getCovariance(process, process2));
+		// check the covariance between the two selected process (it should be min(s,t))
+		// double[] process2 = ?; (just implement the right method)
+		// System.out.println("The covariance is: " + getCovariance(process, process2));
 
 
 	}
 
+	/**
+	 * This method computes the sample average of a given array
+	 * 
+	 * @param array
+	 * @return the average
+	 */
 	private static double getAverage(double[] array) {
 
 		double sum = 0;
@@ -50,6 +57,12 @@ public class BrownianMotionCheck {
 
 	}
 
+	/**
+	 * This method computes the sample variance of a given array
+	 * 
+	 * @param array
+	 * @return the variance
+	 */
 	private static double getVariance(double[] array) {
 
 		double sumSquared = 0;
@@ -62,6 +75,13 @@ public class BrownianMotionCheck {
 		return variance;
 	}
 
+	/**
+	 * This method computes the sample covariance between two array
+	 * 
+	 * @param array1
+	 * @param array2
+	 * @return the covariance
+	 */
 	private static double getCovariance(double[] array1, double[] array2) {
 
 		double[] product = new double[array1.length];

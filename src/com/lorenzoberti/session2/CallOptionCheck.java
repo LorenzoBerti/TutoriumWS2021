@@ -33,7 +33,7 @@ public class CallOptionCheck {
 		double riskFreeRate = 0.05;
 		double sigma = 0.2;
 		
-		// Monte Carlo simulation parameter
+		// Monte Carlo simulation parameters
 		int numberOfSimulation = 100000;
 		int numberOfTimeSteps = 100;
 		int timeStep = 1;
@@ -53,7 +53,7 @@ public class CallOptionCheck {
 
 		}
 		
-		// GArray containing all the payoff
+		// Array storing all the payoff values
 		double[] payoff = new double[numberOfSimulation];
 
 		// fill the array
@@ -100,7 +100,7 @@ public class CallOptionCheck {
 
 		MonteCarloAssetModel blackScholesMonteCarloModel = new MonteCarloAssetModel(process);
 
-		// construct the object EuropeanOption
+		// construct an object of type EuropeanOption
 		EuropeanOption option = new EuropeanOption(maturity, strike);
 
 		// get the value

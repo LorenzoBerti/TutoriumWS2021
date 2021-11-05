@@ -11,12 +11,13 @@ public class BrownianMotionSimple implements BrownianMotionInterface {
 
 	private int numberOfPaths;
 	private int numberOfTimeSteps;
+
+	// the \delta of the time discretization; you can assume it constant.
 	private double timeStep;
 
 	// this matrix stores the paths of the Brownian motion, i.e. it should contains
 	// all the values of the Brownian motion for each path (the columns could store
-	// the paths and
-	// the rows the respective values, or viceversa.
+	// the paths and the rows the respective values, or viceversa.
 	private double wholePaths[][];
 
 	// Constructor
