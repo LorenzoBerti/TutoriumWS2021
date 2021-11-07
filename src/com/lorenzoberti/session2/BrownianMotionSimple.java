@@ -82,8 +82,7 @@ public class BrownianMotionSimple implements BrownianMotionInterface {
 		// This method should generate the whole sample path of the Brownian motion,
 		// i.e. generate the values of the Brownian motion and fill them in the matrix
 		// wholePaths[][].
-		// Hint: use the property of the Brownian motion: W(t_j) = W(t_j-1) +
-		// \sqrt(Δ) * N(0,1)
+		// Hint: Recall the construction of the Brownian motion and its properties...
 		// Hint: Have a look at the class NormalDistribution of the finmath lib...
 
 			}

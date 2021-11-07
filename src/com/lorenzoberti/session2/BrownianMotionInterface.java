@@ -8,7 +8,7 @@ package com.lorenzoberti.session2;
  * motion. The Brownian motion is simulated for a time discretization
  * (t_0,t_1,..,t_n), supposing t_i-t_{i-1} = Δ, i.e., constant for any i =
  * 1,..,n. Note: Here we use array of double to make life easier, but of course
- * it could be done in a more efficient way, i.e. using RandomVariable from the
+ * it could be done in a more efficient way, e.g. using RandomVariable from the
  * finmath library...
  * 
  * @author Lorenzo Berti
