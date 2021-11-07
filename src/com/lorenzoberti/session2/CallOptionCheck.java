@@ -29,14 +29,14 @@ public class CallOptionCheck {
 	public static void main(String[] args) throws CalculationException {
 		
 		// model parameter of S
-		double initialValue = 100;
+		double initialValue = 100.0;
 		double riskFreeRate = 0.05;
 		double sigma = 0.2;
 		
 		// Monte Carlo simulation parameter
 		int numberOfSimulation = 100000;
 		int numberOfTimeSteps = 100;
-		int timeStep = 1;
+		double timeStep = 1.0;
 		
 		// Option parameter
 		double strike = 100;
