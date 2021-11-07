@@ -84,7 +84,7 @@ public class BrownianMotionSimple implements BrownianMotionInterface {
 		// wholePaths[][].
 		// Hint: use the property of the Brownian motion: W(t_j) = W(t_j-1) +
 		// \sqrt(Δ) * N(0,1)
-		// Hint: Have a look at the class NormalRandomVariable
+		// Hint: Have a look at the class NormalDistribution of the finmath lib...
 
 			}
 
