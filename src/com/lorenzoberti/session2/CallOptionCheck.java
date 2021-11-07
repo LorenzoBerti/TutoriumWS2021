@@ -43,25 +43,30 @@ public class CallOptionCheck {
 		int maturity = 10;
 		
 		double evaluationTime = 0;
-
-		double[] finalValue = new double[numberOfSimulation];
 		
 		// Brownian motion constructor
 		// write here the constuctor of the Brownian Motion (just copy and paste :) ).
 
-		// fill the values of the Brownian motion that you have to use in order to
-		// simulate the process
+		// Create an array storing all the values of the Brownian motion that you need
+		// in order to
+		// simulate the process...
 		double[] lastBrownianValue;
 
-		// Create an array storing all the value of S(T)
+		// ... and fill it
+		// write the right method
+
+		// Create an array storing all the value of S(T)...
+		double[] finalValue;
+
+		// ...and fill it
 		for(int i = 0; i < numberOfSimulation; i++) {
 
 		}
 		
-		// Array storing all the payoff values
-		double[] payoff = new double[numberOfSimulation];
+		// Create an array storing all the payoff values...
+		double[] payoff;
 
-		// fill the array
+		// ... and fill it
 		for (int i = 0; i < numberOfSimulation; i++) {
 
 		}
