@@ -31,7 +31,7 @@ public class MainClass {
 	}
 
 	/**
-	 * Something
+	 * This method can be used to print a given string.
 	 * 
 	 * @param string
 	 */
@@ -42,7 +42,7 @@ public class MainClass {
 	}
 
 	/**
-	 * something else
+	 * This method computes the sum of two double.
 	 * 
 	 * @param a
 	 * @param b

@@ -47,7 +47,7 @@ public class CallOptionCheck {
 		double[] finalValue = new double[numberOfSimulation];
 		
 		// Brownian motion constructor
-		// ???
+		// write here the constuctor of the Brownian Motion (just copy and paste :) ).
 
 		// fill the values of the Brownian motion that you have to use in order to
 		// simulate the process

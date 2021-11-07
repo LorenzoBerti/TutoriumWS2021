@@ -41,7 +41,7 @@ public class BrownianMotionCheck {
 	}
 
 	/**
-	 * This method computes the sample average of a given array
+	 * This method computes the sample average of a given array.
 	 * 
 	 * @param array
 	 * @return the average
@@ -58,7 +58,7 @@ public class BrownianMotionCheck {
 	}
 
 	/**
-	 * This method computes the sample variance of a given array
+	 * This method computes the sample variance of a given array.
 	 * 
 	 * @param array
 	 * @return the variance
@@ -76,7 +76,7 @@ public class BrownianMotionCheck {
 	}
 
 	/**
-	 * This method computes the sample covariance between two array
+	 * This method computes the sample covariance between two array.
 	 * 
 	 * @param array1
 	 * @param array2

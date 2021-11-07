@@ -31,7 +31,7 @@ public class BrownianMotionSimple implements BrownianMotionInterface {
 	@Override
 	public double[][] getPaths() {
 		// lazy inizialization: we inizialize it only one time
-		// (but this is would not be a problem because everything is random)
+		// (but this would not be a problem because everything is random...)
 		if (wholePaths == null) {
 			generate();
 		}
