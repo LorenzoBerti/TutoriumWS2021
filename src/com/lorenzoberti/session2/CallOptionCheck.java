@@ -34,19 +34,21 @@ public class CallOptionCheck {
 		double sigma = 0.2;
 		
 		// Monte Carlo simulation parameter
-		int numberOfSimulation = 100000;
-		int numberOfTimeSteps = 100;
-		double timeStep = 1.0;
+		int numberOfSimulation = 1000000;
+		int numberOfTimeSteps = 10;
+		double timeStep = 0.1;
 		
 		// Option parameter
 		double strike = 100;
-		int maturity = 10;
+		double maturity = numberOfTimeSteps * timeStep;
 		
+		// double timeStep = maturity / numberOfTimeSteps;
+
 		double evaluationTime = 0;
 
 		double[] finalValue = new double[numberOfSimulation];
 		BrownianMotionInterface brownian = new BrownianMotionSimple(numberOfSimulation, numberOfTimeSteps, timeStep);
-		double[] lastBrownianValue = brownian.getProcessAtTimeIndex(maturity);
+		double[] lastBrownianValue = brownian.getProcessAtTimeIndex((int) maturity);
 		
 		// now we create an array storing all the value of S(T)
 		for(int i = 0; i < numberOfSimulation; i++) {
