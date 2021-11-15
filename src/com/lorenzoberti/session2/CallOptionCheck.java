@@ -36,7 +36,7 @@ public class CallOptionCheck {
 		// Monte Carlo simulation parameter
 		int numberOfSimulation = 1000000;
 		int numberOfTimeSteps = 10;
-		double timeStep = 0.1;
+		double timeStep = 1.0;
 		
 		// Option parameter
 		double strike = 100;
