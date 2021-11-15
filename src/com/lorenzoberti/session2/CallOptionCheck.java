@@ -34,9 +34,9 @@ public class CallOptionCheck {
 		double sigma = 0.2;
 		
 		// Monte Carlo simulation parameter
-		int numberOfSimulation = 100000;
-		int numberOfTimeSteps = 100;
-		int timeStep = 1;
+		int numberOfSimulation = 1000000;
+		int numberOfTimeSteps = 10;
+		double timeStep = 1.0;
 		
 		// Option parameter
 		double strike = 100;
@@ -46,39 +46,29 @@ public class CallOptionCheck {
 
 		double evaluationTime = 0;
 
-		// Create an array storing all the values of the Brownian motion that you need
-		// in order to
-		// simulate the process...
-
-
-		// ... and fill it
-		// write the right method
-
-		// Create an array storing all the value of S(T)...
 		double[] finalValue = new double[numberOfSimulation];
-		// ...and fill it
-
 		BrownianMotionInterface brownian = new BrownianMotionSimple(numberOfSimulation, numberOfTimeSteps, timeStep);
 		double[] lastBrownianValue = brownian.getProcessAtTimeIndex((int) maturity);
 		
 		// now we create an array storing all the value of S(T)
 		for(int i = 0; i < numberOfSimulation; i++) {
-
+			finalValue[i] = initialValue
+					* Math.exp((riskFreeRate - 0.5 * sigma * sigma) * maturity + sigma * lastBrownianValue[i]);
 		}
 		
-		// Create an array storing all the payoff values...
-		double[] payoff;
-
-		// ... and fill it
+		// get the array containing all the payoff
+		double[] payoff = new double[numberOfSimulation];
 		for (int i = 0; i < numberOfSimulation; i++) {
-
+			payoff[i] = Math.max(finalValue[i] - strike, 0);
 		}
 		
-		// Now get the price by using the Monte Carlo method
-		double price = 0;
+		// now get the price
+		double sum = 0;
+		for (int i = 0; i < numberOfSimulation; i++) {
+			sum += payoff[i];
+		}
+		double price = sum / numberOfSimulation;
 		
-		// implement the Monte Carlo method here
-
 		// discounting...
 		price = price * Math.exp(-riskFreeRate * maturity);
 
@@ -94,31 +84,25 @@ public class CallOptionCheck {
 
 		System.out.println("The analytic price is: " + analyticPrice);
 
-		// Let's price the call by using the finmath library
+		// With the finmath library
 
 		double initialTime = 0;
 		int seed = 3013;
 
-		// create the model
 		ProcessModel blackScholesModel = new BlackScholesModel(initialValue, riskFreeRate, sigma);
 
-		// discretization of the interval
 		TimeDiscretization timeDiscretization = new TimeDiscretizationFromArray(initialTime, numberOfTimeSteps,
 				timeStep);
 
-		// create the Brownian motion
 		BrownianMotion brownianMotion = new BrownianMotionFromMersenneRandomNumbers(timeDiscretization, 1,
 				numberOfSimulation, seed);
 
-		// generate the process
 		MonteCarloProcess process = new EulerSchemeFromProcessModel(blackScholesModel, brownianMotion);
 
 		MonteCarloAssetModel blackScholesMonteCarloModel = new MonteCarloAssetModel(process);
 
-		// construct an object of type EuropeanOption
 		EuropeanOption option = new EuropeanOption(maturity, strike);
 
-		// get the value
 		double value = option.getValue(blackScholesMonteCarloModel);
 
 		System.out.println("The option value with the finmath lib is: " + value);

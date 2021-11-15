@@ -10,10 +10,8 @@ package com.lorenzoberti.session2;
 public class BrownianMotionCheck {
 
 	private static int numberOfPaths = 100000;
-	private static double timeHorizon = 1;
 	private static int numberOfTimeSteps = 100;
 	private static double timeStep = 1.0;
-	// private static double timeStep = timeHorizon / numberOfTimeSteps;
 
 	/**
 	 * @param args
