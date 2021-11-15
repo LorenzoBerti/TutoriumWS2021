@@ -49,16 +49,15 @@ public class CallOptionCheck {
 		// Create an array storing all the values of the Brownian motion that you need
 		// in order to
 		// simulate the process...
-		double[] lastBrownianValue;
+
 
 		// ... and fill it
 		// write the right method
 
 		// Create an array storing all the value of S(T)...
-		double[] finalValue;
-
-		// ...and fill it
 		double[] finalValue = new double[numberOfSimulation];
+		// ...and fill it
+
 		BrownianMotionInterface brownian = new BrownianMotionSimple(numberOfSimulation, numberOfTimeSteps, timeStep);
 		double[] lastBrownianValue = brownian.getProcessAtTimeIndex((int) maturity);
 		
