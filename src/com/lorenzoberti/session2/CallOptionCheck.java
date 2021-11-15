@@ -29,23 +29,22 @@ public class CallOptionCheck {
 	public static void main(String[] args) throws CalculationException {
 		
 		// model parameter of S
-		double initialValue = 100;
+		double initialValue = 100.0;
 		double riskFreeRate = 0.05;
 		double sigma = 0.2;
 		
-		// Monte Carlo simulation parameters
+		// Monte Carlo simulation parameter
 		int numberOfSimulation = 100000;
 		int numberOfTimeSteps = 100;
 		int timeStep = 1;
 		
 		// Option parameter
 		double strike = 100;
-		int maturity = 10;
+		double maturity = numberOfTimeSteps * timeStep;
 		
+		// double timeStep = maturity / numberOfTimeSteps;
+
 		double evaluationTime = 0;
-		
-		// Brownian motion constructor
-		// write here the constuctor of the Brownian Motion (just copy and paste :) ).
 
 		// Create an array storing all the values of the Brownian motion that you need
 		// in order to
@@ -59,6 +58,11 @@ public class CallOptionCheck {
 		double[] finalValue;
 
 		// ...and fill it
+		double[] finalValue = new double[numberOfSimulation];
+		BrownianMotionInterface brownian = new BrownianMotionSimple(numberOfSimulation, numberOfTimeSteps, timeStep);
+		double[] lastBrownianValue = brownian.getProcessAtTimeIndex((int) maturity);
+		
+		// now we create an array storing all the value of S(T)
 		for(int i = 0; i < numberOfSimulation; i++) {
 
 		}

@@ -4,17 +4,16 @@
 package com.lorenzoberti.session2;
 
 /**
- * This class checks if the implementation of your Brownian motion is good, i.e.
- * if the properties of the Brownian motion are satisfied.
- * 
  * @author Lorenzo Berti
  *
  */
 public class BrownianMotionCheck {
 
 	private static int numberOfPaths = 100000;
+	private static double timeHorizon = 1;
 	private static int numberOfTimeSteps = 100;
-	private static double timeStep = 1;
+	private static double timeStep = 1.0;
+	// private static double timeStep = timeHorizon / numberOfTimeSteps;
 
 	/**
 	 * @param args
@@ -22,30 +21,26 @@ public class BrownianMotionCheck {
 	public static void main(String[] args) {
 
 		// we create an object of type BrownianMotionInterface
+		// we create an object of type BrownianMotion
 		BrownianMotionInterface brownian = new BrownianMotionSimple(numberOfPaths, numberOfTimeSteps, timeStep);
 
 		// we take the process at a given time
-		// double[] process1 = ?; (just implement the right method)
+		double[] process = brownian.getProcessAtTimeIndex(10);
 
 		// check the average (it should be 0)
-		// System.out.println("The average is: " + getAverage(process1));
+		System.out.println("The average is: " + getAverage(process));
 
 		// check the variance (it should be == time)
-		// System.out.println("The variance is: " + getVariance(process1));
+		System.out.println("The variance is: " + getVariance(process));
 
-		// check the covariance between the two selected process (it should be min(s,t))
-		// double[] process2 = ?; (just implement the right method)
-		// System.out.println("The covariance is: " + getCovariance(process, process2));
+		// check the covariance (it should be min(s,t))
+		double[] process2 = brownian.getProcessAtTimeIndex(8);
+		System.out.println("The covariance is: " + getCovariance(process, process2));
 
+		brownian.printPath(10);
 
 	}
 
-	/**
-	 * This method computes the sample average of a given array.
-	 * 
-	 * @param array
-	 * @return the average
-	 */
 	private static double getAverage(double[] array) {
 
 		double sum = 0;
@@ -57,12 +52,6 @@ public class BrownianMotionCheck {
 
 	}
 
-	/**
-	 * This method computes the sample variance of a given array.
-	 * 
-	 * @param array
-	 * @return the variance
-	 */
 	private static double getVariance(double[] array) {
 
 		double sumSquared = 0;
@@ -75,13 +64,6 @@ public class BrownianMotionCheck {
 		return variance;
 	}
 
-	/**
-	 * This method computes the sample covariance between two array.
-	 * 
-	 * @param array1
-	 * @param array2
-	 * @return the covariance
-	 */
 	private static double getCovariance(double[] array1, double[] array2) {
 
 		double[] product = new double[array1.length];
