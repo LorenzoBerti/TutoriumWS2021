@@ -23,15 +23,16 @@ public class BrownianMotionDCheck {
 	public static void main(String[] args) {
 
 		int numberOfFactors = 2;
-		int numberOfPaths = 1000000;
+		int numberOfPaths = 100000;
 
 		double initialTime = 0.0;
 		double finalTime = 10.0;
-		double deltaT = 0.5;
+		double deltaT = 1.0;
 		int numberOfTimeSteps = (int) (finalTime / deltaT);
 
 		TimeDiscretization times = new TimeDiscretizationFromArray(initialTime, numberOfTimeSteps, deltaT);
 
+		// Constructor
 		BrownianMotionMultiD brownian = new BrownianMotionD(times, numberOfFactors, numberOfPaths);
 
 		// check the average and the variance
@@ -56,7 +57,7 @@ public class BrownianMotionDCheck {
 
 		System.out.println();
 
-		// check the independence
+		// check the independence (Covariance test)
 		System.out.println("Independence between factors test:");
 		RandomVariable secondFactor = brownian.getBrownianMotionAtSpecificTimeIndex(1, 5);
 		System.out.println("Independence (covariance test): " + secondFactor.covariance(firstBrownian).getAverage());
