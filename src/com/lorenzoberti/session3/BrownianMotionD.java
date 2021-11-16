@@ -1,8 +1,6 @@
 package com.lorenzoberti.session3;
 
-import net.finmath.functions.NormalDistribution;
 import net.finmath.montecarlo.RandomVariableFromDoubleArray;
-import net.finmath.randomnumbers.MersenneTwister;
 import net.finmath.stochastic.RandomVariable;
 import net.finmath.time.TimeDiscretization;
 
@@ -115,58 +113,16 @@ public class BrownianMotionD implements BrownianMotionMultiD {
 		final double[][][] brownianIncrementsArray = new double[numberOfTimeSteps][numberOfFactors][numberOfPaths];
 		final double[][][] brownianPathsArray = new double[numberOfTimes][numberOfFactors][numberOfPaths];
 
-		// 3 for loops: one for each dimension of the 3-dim array, i.e. paths, factors
-		// and times
-		for (int pathIndex = 0; pathIndex < numberOfPaths; pathIndex++) {
-			for (int factorIndex = 0; factorIndex < numberOfFactors; factorIndex++) {
-				// at time 0 the brownian motion is 0
-				brownianPathsArray[0][factorIndex][pathIndex] = 0;
+		// Write your code here
 
-				// random number generator
-				MersenneTwister mersenne = new MersenneTwister();
-
-				for (int timeIndex = 0; timeIndex < numberOfTimeSteps; timeIndex++) {
-					// generate the uniform random number on [0,1]
-					double random = mersenne.nextDouble();
-					// compute the brownian increments: normal distribution * sqrt(Δ)
-					brownianIncrementsArray[timeIndex][factorIndex][pathIndex] = NormalDistribution
-							.inverseCumulativeDistribution(random) * Math.sqrt(times.getTimeStep(timeIndex));
-					// compute the brownian value
-					brownianPathsArray[timeIndex
-							+ 1][factorIndex][pathIndex] = brownianPathsArray[timeIndex][factorIndex][pathIndex]
-									+ brownianIncrementsArray[timeIndex][factorIndex][pathIndex];
-				}
-			}
-		}
-
-		// Now we have to fill our array of Random Variable.
-		// First allocate the memory
-		// brownianIncrements = new RandomVariable[numberOfTimeSteps][numberOfFactors];
-		// brownianPaths = new RandomVariable[numberOfTimeSteps + 1][numberOfFactors];
+		// Now we have to fill our array of RandomVariable
 		brownianIncrements = new RandomVariable[numberOfTimeSteps][numberOfFactors];
 		brownianPaths = new RandomVariable[numberOfTimeSteps + 1][numberOfFactors];
 
-		// Then fill the arrays: we use the class RandomVariableFromDoubleArray of the
+		// Then fill the arrays: use the class RandomVariableFromDoubleArray of the
 		// finmath lib in order to create the random variables
-		for (int factorIndex = 0; factorIndex < numberOfFactors; factorIndex++) {
-			// first create the non stochastic random variables of vector 0 (first entries
-			// of the
-			// brownian vector)
-			brownianPaths[0][factorIndex] = new RandomVariableFromDoubleArray(times.getTime(0), 0);
-			// then we fill the brownianIncrements and the brownianPaths array using the
-			// same class
-			// Note: the realizations of the random variable at time t are given by the
-			// values of the
-			// paths at time t
-			for (int timeIndex = 0; timeIndex < numberOfTimeSteps; timeIndex++) {
-				brownianIncrements[timeIndex][factorIndex] = new RandomVariableFromDoubleArray(times.getTime(timeIndex),
-						brownianIncrementsArray[timeIndex][factorIndex]);
-				// we have timeIndex+1 because the first entry is 0
-				brownianPaths[timeIndex + 1][factorIndex] = new RandomVariableFromDoubleArray(
-						times.getTime(timeIndex + 1), brownianPathsArray[timeIndex + 1][factorIndex]);
-			}
 
-	}
+		// Write your code here
 
 }
 }
