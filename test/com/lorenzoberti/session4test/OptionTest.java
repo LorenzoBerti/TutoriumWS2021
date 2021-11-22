@@ -32,7 +32,7 @@ class OptionTest {
 	double deltaT = 1.0;
 	int numberOfTimeSteps = (int) (finalTime / deltaT);
 
-	double maturity = 2.0;
+	double maturity = finalTime;
 
 	double timeEval = 0.0;
 
@@ -121,8 +121,8 @@ class OptionTest {
 
 		// paymentDate: T2,
 		// fixingDate: T1
-		double paymentDate = 2.0;
-		double fixingDate = 1.0;
+		double paymentDate = maturity;
+		double fixingDate = maturity - deltaT;
 
 		double initialLiborRate = 0.05;
 		double liborVol = 0.3;
