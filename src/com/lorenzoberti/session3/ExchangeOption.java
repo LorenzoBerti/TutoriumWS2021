@@ -27,12 +27,11 @@ public class ExchangeOption {
 	public static void main(String[] args) {
 
 		int numberOfFactors = 2;
-		int numberOfSimulations = 100000;
+		int numberOfPaths = 100000;
 
 		// Time parameter
 		double initialTime = 0.0;
-		double timeEval = 0.0;
-		double finalTime = 10.0;
+		double finalTime = 2.0;
 		double deltaT = 1.0;
 		int numberOfTimeSteps = (int) (finalTime / deltaT);
 
@@ -42,53 +41,58 @@ public class ExchangeOption {
 		double firstAssetInitial = 100.0;
 		double secondAssetInitial = 100.0;
 
-		double firstAssetVol = 0.3;
-		double secondAssetVol = 0.2;
+		double firstAssetVolDouble = 0.3;
+		double secondAssetVolDouble = 0.5;
 
 		double riskFree = 0.05;
 
+		// Since we want to use objects of type RandomVariable we create four no
+		// stochastic random variable using the model parameter
+		// Note: a costant c can be seen as a trivial random variable X s.t. P(X = c) =
+		// 1, P(X != c) = 0
 		RandomVariable firstAssetInitialValue = new RandomVariableFromDoubleArray(firstAssetInitial);
 		RandomVariable secondAssetInitialValue = new RandomVariableFromDoubleArray(secondAssetInitial);
 
-		RandomVariable firstAssetVolRandom = new RandomVariableFromDoubleArray(firstAssetVol);
-		RandomVariable secondAssetVolRandom = new RandomVariableFromDoubleArray(secondAssetVol);
+		RandomVariable firstAssetVol = new RandomVariableFromDoubleArray(firstAssetVolDouble);
+		RandomVariable secondAssetVol = new RandomVariableFromDoubleArray(secondAssetVolDouble);
 
-		TimeDiscretization time = new TimeDiscretizationFromArray(initialTime, numberOfTimeSteps, deltaT);
+		TimeDiscretization times = new TimeDiscretizationFromArray(initialTime, numberOfTimeSteps, deltaT);
 
-		BrownianMotionMultiD brownian = new BrownianMotionD(time, numberOfFactors, numberOfSimulations);
+		// Constructor of our Brownian motion
+		BrownianMotionMultiD brownian = new BrownianMotionD(times, numberOfFactors, numberOfPaths);
 
+		// DoubleTernaryOperator (from the finmath-lib)
 		DoubleTernaryOperator geometricBrownian = (x, y, z) -> {
-
-			return z * Math.exp((riskFree - y * y * 0.5) * maturity + x * y);
-
+			return z * Math.exp((riskFree - y * y * 0.5) * maturity + y * x);
 		};
-
-		// First asset
+		// First asset at maturity
 		RandomVariable firstBrownian = brownian.getBrownianMotionAtSpecificTime(0, maturity);
-		RandomVariable firstAssetAtMaturity = firstBrownian.apply(geometricBrownian, firstAssetVolRandom,
-				firstAssetInitialValue);
+		RandomVariable firstAsset = firstBrownian.apply(geometricBrownian, firstAssetVol, firstAssetInitialValue);
 
-		// Second asset
+		// Second asset at maturity
 		RandomVariable secondBrownian = brownian.getBrownianMotionAtSpecificTime(1, maturity);
-		RandomVariable secondAssetAtMaturity = firstBrownian.apply(geometricBrownian, secondAssetVolRandom,
-				secondAssetInitialValue);
+		RandomVariable secondAsset = secondBrownian.apply(geometricBrownian, secondAssetVol, secondAssetInitialValue);
 
-		double price = firstAssetAtMaturity.sub(secondAssetAtMaturity).floor(0.0).getAverage();
+		// Note the methods of the RandomVariable interface!
+		double price = firstAsset.sub(secondAsset).floor(0.0).getAverage();
 
-		price = price * Math.exp((timeEval - maturity) * riskFree);
+		// discounting...
+		price = price * Math.exp(-riskFree * maturity);
 
-		System.out.println("The Monte Carlo price is: " + price);
+		System.out.println("The price is: " + price);
 		
-		double vol = firstAssetVol * firstAssetVol
-				- 2 * firstAssetVol * secondAssetVol * firstBrownian.covariance(secondBrownian).getAverage()
-				+ secondAssetVol * secondAssetVol;
+		// Check: there exists an analytic formula for the exchange option that can be
+		// recovered through the change of measure...
+		double vol = firstAssetVolDouble * firstAssetVolDouble
+				- 2 * firstBrownian.covariance(secondBrownian).getAverage() * firstAssetVolDouble * secondAssetVolDouble
+				+ secondAssetVolDouble * secondAssetVolDouble;
 
 		vol = Math.sqrt(vol);
 
 		double analyticPrice = AnalyticFormulas.blackScholesOptionValue(firstAssetInitial, 0, vol, maturity,
 				secondAssetInitial);
 
-		System.out.println("The analytic price is: " + analyticPrice);
+		System.out.println("Analytic price: " + analyticPrice);
 
 	}
 
