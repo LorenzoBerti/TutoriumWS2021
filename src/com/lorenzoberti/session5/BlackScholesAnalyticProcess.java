@@ -14,7 +14,8 @@ import net.finmath.time.TimeDiscretization;
  * discretization and simulation of a stochastic process under the Black Scholes
  * model, i.e. the process is lognormal distributed: d(X(t)) = mu X(t) dt +
  * sigma X(t) dB(t). Here we want to use the analytic solution of the sde, i.e.
- * X(t) = X(0)* exp((mu - sigma^2 * 0.5) t + sigma * W(t))
+ * X(t) = X(0)* exp((mu - sigma^2 * 0.5) t + sigma * W(t)) and generate the
+ * whole process iteratively.
  */
 public class BlackScholesAnalyticProcess implements ProcessSimulation {
 
