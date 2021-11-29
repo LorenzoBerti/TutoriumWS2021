@@ -9,7 +9,7 @@ import net.finmath.stochastic.RandomVariable;
  * @author Lorenzo Berti
  *
  */
-public class ExchangeOption {
+public class ExchangeOption extends EuropeanOption {
 
 	private final RandomVariable asset1;
 	private final RandomVariable asset2;

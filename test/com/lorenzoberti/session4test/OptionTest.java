@@ -2,33 +2,30 @@ package com.lorenzoberti.session4test;
 
 import java.util.function.DoubleUnaryOperator;
 
+import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 
+import com.lorenzoberti.session3.BrownianMotionD;
 import com.lorenzoberti.session3.BrownianMotionMultiD;
+import com.lorenzoberti.session4.CallOption;
+import com.lorenzoberti.session4.Caplet;
+import com.lorenzoberti.session4.ExchangeOption;
 
 import net.finmath.functions.AnalyticFormulas;
 import net.finmath.stochastic.RandomVariable;
 import net.finmath.time.TimeDiscretization;
 import net.finmath.time.TimeDiscretizationFromArray;
 
-/**
- * Use this test class to check if your price are "quite good". Feel free to
- * change the parameters as you prefer.
- * 
- * @author Lorenzo Berti
- *
- */
-
 class OptionTest {
 
-	double tolerance = 0.05;
+	double tolerance = 0.5;
 
 	int numberOfFactors = 2;
-	int numberOfPaths = 100000;
+	int numberOfPaths = 1000000;
 
 	// Time parameter
 	double initialTime = 0.0;
-	double finalTime = 10.0;
+	double finalTime = 2.0;
 	double deltaT = 1.0;
 	int numberOfTimeSteps = (int) (finalTime / deltaT);
 
@@ -45,25 +42,27 @@ class OptionTest {
 
 	double riskFree = 0.05;
 
-	// The discount factor in the classic Black-Scholes model
 	double discountFactor = Math.exp((timeEval - maturity) * riskFree);
 
 	TimeDiscretization times = new TimeDiscretizationFromArray(initialTime, numberOfTimeSteps, deltaT);
 
 	// Constructor of our Brownian motion
-	BrownianMotionMultiD brownian;
+	BrownianMotionMultiD brownian = new BrownianMotionD(times, numberOfFactors, numberOfPaths);
 
 	@Test
 	void exchangeTest() {
 
-		// Use the method getAssetAtSpecificTime to find the two assets at the maturity
+		RandomVariable firstAsset = getAssetAtSpecificTime(brownian, 0, riskFree, firstAssetVolDouble,
+				firstAssetInitial, maturity);
 
-		// Write here the constructor of your class for the Exchange option
+		RandomVariable secondAsset = getAssetAtSpecificTime(brownian, 1, riskFree, secondAssetVolDouble,
+				secondAssetInitial, maturity);
 
-		// get the payoff of the Exchange option
+		ExchangeOption exchangeOption = new ExchangeOption(firstAsset, secondAsset);
 
-		// get the price of the Exchange option
+		RandomVariable payoffExchange = exchangeOption.getPayoff();
 
+		double priceExchange = exchangeOption.getPriceAsDouble(discountFactor, payoffExchange);
 
 		double covariance = brownian.getBrownianMotionAtSpecificTime(0, maturity)
 				.covariance(brownian.getBrownianMotionAtSpecificTime(1, maturity)).getAverage();
@@ -77,11 +76,11 @@ class OptionTest {
 		double analyticPriceExchange = AnalyticFormulas.blackScholesOptionValue(firstAssetInitial, 0, vol, maturity,
 				secondAssetInitial);
 
-		// Check if your price is near to the analytic one
+		Assert.assertEquals(priceExchange, analyticPriceExchange, tolerance);
 
 		System.out.println("Exchange test: ");
 
-		System.out.println("The Monte Carlo price is: ");
+		System.out.println("The Monte Carlo price is: " + priceExchange);
 
 		System.out.println("The analytic price is: " + analyticPriceExchange);
 
@@ -94,22 +93,23 @@ class OptionTest {
 
 		double strike = firstAssetInitial;
 
-		// Use the method getAssetAtSpecificTime to find the asset at the maturity
+		RandomVariable firstAsset = getAssetAtSpecificTime(brownian, 0, riskFree, firstAssetVolDouble,
+				firstAssetInitial, maturity);
 
-		// Write here the constructor of your class for the Call
+		CallOption callOption = new CallOption(strike);
 
-		// get the payoff of the Call
+		RandomVariable payoffCall = callOption.getPayoff(firstAsset);
 
-		// get the price of the Call
+		double priceCall = callOption.getPriceAsDouble(discountFactor, payoffCall);
 
 		double analyticPriceCall = AnalyticFormulas.blackScholesOptionValue(firstAssetInitial, riskFree,
 				firstAssetVolDouble, maturity, strike);
 
-		// Check if your price is near to the analytic one
+		Assert.assertEquals(priceCall, analyticPriceCall, tolerance);
 
 		System.out.println("Call test: ");
 
-		System.out.println("The Monte Carlo price is: ");
+		System.out.println("The Monte Carlo price is: " + priceCall);
 
 		System.out.println("The analytic price is: " + analyticPriceCall);
 
@@ -119,38 +119,35 @@ class OptionTest {
 	@Test
 	void capletTest() {
 
-		// paymentDate: T2,
-		// fixingDate: T1
-		double paymentDate = maturity;
-		double fixingDate = maturity - deltaT;
+		double paymentDate = 2.0;
+		double fixingDate = 1.0;
 
 		double initialLiborRate = 0.05;
 		double liborVol = 0.3;
 
-		double discountFactorAtMaturity = 0.90;
+		double discountFactorAtMaturity = 0.91;
 
-		// Use the method getAssetAtSpecificTime to find the liborRate at the fixing
-		// date
+		RandomVariable liborRate = getAssetAtSpecificTime(brownian, 0, 0, liborVol, initialLiborRate, fixingDate);
 
-		double strikeCaplet = 0.05;
+		double strikeCaplet = 0.044;
 		double notional = 1000.0;
 
 		double timeLength = paymentDate - fixingDate;
 
-		// Write here the constructor of your class for the Caplet
+		Caplet caplet = new Caplet(deltaT, strikeCaplet, notional);
 
-		// get the payoff of the Caplet
+		RandomVariable payoffCaplet = caplet.getPayoff(liborRate);
 
-		// get the price of the Caplet
+		double priceCaplet = caplet.getPriceAsDouble(discountFactorAtMaturity, payoffCaplet);
 
 		double analyticPriceCaplet = notional * discountFactorAtMaturity * timeLength
 				* AnalyticFormulas.blackScholesOptionValue(initialLiborRate, 0, liborVol, timeLength, strikeCaplet);
 
-		// Check if your price is near to the analytic one
+		Assert.assertEquals(priceCaplet, analyticPriceCaplet, tolerance);
 
 		System.out.println("Caplet test: ");
 
-		System.out.println("The Monte Carlo price is: ");
+		System.out.println("The Monte Carlo price is: " + priceCaplet);
 
 		System.out.println("The analytic price is: " + analyticPriceCaplet);
 
@@ -158,19 +155,6 @@ class OptionTest {
 
 	}
 
-	/**
-	 * This private method returns the stochastic process as object of type
-	 * RandomVariable at the given time under the Black-Scholes model, i.e. we
-	 * suppose that the assets follow a geometric brownian motion.
-	 * 
-	 * @param the          (multi-dimension) brownian motion
-	 * @param the          indexFactor of the brownian motion
-	 * @param riskFree
-	 * @param sigma
-	 * @param initialValue
-	 * @param time
-	 * @return the stochastic process at the given time
-	 */
 	private static RandomVariable getAssetAtSpecificTime(BrownianMotionMultiD brownian, int indexFactor,
 			double riskFree, double sigma, double initialValue, double time) {
 
