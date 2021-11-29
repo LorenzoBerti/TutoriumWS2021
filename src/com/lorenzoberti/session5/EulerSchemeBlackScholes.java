@@ -2,15 +2,20 @@ package com.lorenzoberti.session5;
 
 import java.util.function.DoubleUnaryOperator;
 
-import com.lorenzoberti.session3.BrownianMotionD;
 import com.lorenzoberti.session3.BrownianMotionMultiD;
 
-import net.finmath.montecarlo.RandomVariableFromDoubleArray;
 import net.finmath.plots.Plot2D;
 import net.finmath.stochastic.RandomVariable;
 import net.finmath.time.TimeDiscretization;
 
 /**
+ * This class implements the ProcessSimulation Interface. It represents the
+ * discretization and simulation of a stochastic process under the Black Scholes
+ * model, i.e. the process is lognormal distributed: d(X(t)) = mu X(t) dt +
+ * sigma X(t) dB(t). Here we use the Euler scheme in order to discretize and
+ * simulate the process. Recall that the Euler scheme is: X(t_{i+1}) = mu(t_i,
+ * X_{t_i}) (t_{i+1} - t_{i}) + sigma(t_i, X_{t_i}) (W_{t+1} - W_{t_i})
+ * 
  * @author Lorenzo Berti
  *
  */
@@ -25,25 +30,7 @@ public class EulerSchemeBlackScholes implements ProcessSimulation {
 
 	private RandomVariable[] allPaths;
 
-	public EulerSchemeBlackScholes(double initialValue, double mu, double sigma, TimeDiscretization times,
-			int numberOfPaths, int seed) {
-		super();
-		this.initialValue = initialValue;
-		this.mu = mu;
-		this.sigma = sigma;
-		this.times = times;
-		this.numberOfPaths = numberOfPaths;
-		this.brownian = new BrownianMotionD(times, 1, numberOfPaths);
-	}
-
-	public EulerSchemeBlackScholes(BrownianMotionMultiD brownian, double initialValue, double mu, double sigma) {
-		super();
-		this.brownian = brownian;
-		this.initialValue = initialValue;
-		this.mu = mu;
-		this.sigma = sigma;
-		this.times = brownian.getTimeDiscretization();
-	}
+	// Write the constructor (possible overloading constructor?)
 
 	@Override
 	public double getInitialValue() {
@@ -109,22 +96,6 @@ public class EulerSchemeBlackScholes implements ProcessSimulation {
 		return path;
 	}
 
-	private void generate() {
-
-		allPaths = new RandomVariable[times.getNumberOfTimes()];
-
-		allPaths[0] = new RandomVariableFromDoubleArray(initialValue);
-
-		for (int i = 0; i < times.getNumberOfTimes() - 1; i++) {
-
-			RandomVariable drift = allPaths[i].mult(mu).mult(times.getTimeStep(i));
-			RandomVariable diffusion = allPaths[i].mult(brownian.getBrownianIncrement(i, 0)).mult(sigma);
-
-			allPaths[i + 1] = allPaths[i].add(drift).add(diffusion);
-
-		}
-
-	}
 
 	@Override
 	public double getSpecificValueOfSpecificPath(int pathIndex, int timeIndex) {
@@ -147,6 +118,12 @@ public class EulerSchemeBlackScholes implements ProcessSimulation {
 		plot.setXAxisLabel("Time");
 		plot.setYAxisLabel("Process");
 		plot.show();
+
+	}
+
+	private void generate() {
+
+		// write here your code
 
 	}
 

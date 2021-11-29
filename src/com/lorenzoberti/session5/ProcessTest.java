@@ -1,19 +1,21 @@
 package com.lorenzoberti.session5;
 
-import java.text.DecimalFormat;
-import java.util.Arrays;
 import java.util.function.DoubleUnaryOperator;
 
 import com.lorenzoberti.session3.BrownianMotionD;
 import com.lorenzoberti.session3.BrownianMotionMultiD;
 
-import net.finmath.plots.Named;
-import net.finmath.plots.Plot2D;
 import net.finmath.stochastic.RandomVariable;
 import net.finmath.time.TimeDiscretization;
 import net.finmath.time.TimeDiscretizationFromArray;
 
 /**
+ * Use this class to check of your simulation are "quite" good. You can use the
+ * private method getAssetAtSpecific time to see if your implementation are good
+ * enough. Note: the method getAssetAtSpecific generates directly and only the
+ * process at the given time and thus not the paths! Your
+ * BlackScholesAnalyticProcess should also generate the whole path...
+ * 
  * @author Lorenzo Berti
  *
  */
@@ -38,48 +40,33 @@ public class ProcessTest {
 		double mu = 0.1;
 		double sigma = 0.2;
 
-		ProcessSimulation process = new EulerSchemeBlackScholes(brownian, initialValue, mu, sigma);
+		// Constructor of the EulerSchemeBlackScholes
 
-		ProcessSimulation processAnalytic = new BlackScholesAnalyticProcess(brownian, initialValue, mu, sigma);
+		// Constructor of the BlackScholesAnalyticProcess
 
-		RandomVariable lastValue = process.getProcessAtGivenTime(finalTime);
-		RandomVariable lastValueAnalytic = processAnalytic.getProcessAtGivenTime(finalTime);
+		// Take some value (for instance the last one) of your simulated processes
+
 		RandomVariable lastValuePrivate = getAssetAtSpecificTime(brownian, 0, mu, sigma, initialValue, finalTime);
 
-		double average = lastValue.getAverage();
-		double averageAnalytic = lastValueAnalytic.getAverage();
+		// Take their average...
+
 		double averagePrivate = lastValuePrivate.getAverage();
 
-		System.out.println("The Monte Carlo average is: " + average);
-		System.out.println("The analytic average is: " + averageAnalytic);
+		// ...and print
+		System.out.println("The Euler scheme average is: ");
+		System.out.println("The analytic average is: ");
 		System.out.println("The average with the private method is: " + averagePrivate);
 
-		double variance = lastValue.getVariance();
-		double varianceAnalytic = lastValueAnalytic.getVariance();
+		// Take their variance...
+
 		double variancePrivate = lastValuePrivate.getVariance();
 
-		System.out.println("The Monte Carlo variance is: " + variance);
-		System.out.println("The analytic variance is: " + varianceAnalytic);
+		// ...and print
+		System.out.println("The Monte Carlo variance is: ");
+		System.out.println("The analytic variance is: ");
 		System.out.println("The variance with the private method is: " + variancePrivate);
 
-		DoubleUnaryOperator simulatedProcessTrajectory = t -> {
-			return process.getSpecificValueOfSpecificPath(10, (int) t);
-		};
 
-		DoubleUnaryOperator analyticProcessTrajectory = t -> {
-			return processAnalytic.getSpecificValueOfSpecificPath(10, (int) t);
-		};
-
-		Plot2D plot = new Plot2D(0, times.getNumberOfTimes(), times.getNumberOfTimes() + 1, Arrays.asList(
-				new Named<DoubleUnaryOperator>("Analytic", analyticProcessTrajectory),
-				new Named<DoubleUnaryOperator>("Euler Scheme", simulatedProcessTrajectory))/* functions plotted */);
-
-		plot.setYAxisNumberFormat(new DecimalFormat("0.0")).setTitle("Path of Simulated Process").setXAxisLabel("time")
-				.setYAxisLabel("Process");
-
-		plot.setIsLegendVisible(true);
-
-		plot.show();
 
 	}
 

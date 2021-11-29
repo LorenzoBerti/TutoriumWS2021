@@ -3,17 +3,16 @@
  */
 package com.lorenzoberti.session5;
 
-import java.util.function.DoubleUnaryOperator;
-
-import com.lorenzoberti.session3.BrownianMotionD;
-import com.lorenzoberti.session3.BrownianMotionMultiD;
-
 import net.finmath.functions.AnalyticFormulas;
-import net.finmath.stochastic.RandomVariable;
 import net.finmath.time.TimeDiscretization;
 import net.finmath.time.TimeDiscretizationFromArray;
 
 /**
+ * Use this class to price a call option with the objects of type
+ * ProcessSimulation that you have created. Change the parameters (in particular
+ * numberOfPaths, timeStep and maturity of the option) and try to explain the
+ * behaviour of what you see.
+ * 
  * @author Lorenzo Berti
  *
  */
@@ -25,6 +24,8 @@ public class CallTest {
 	public static void main(String[] args) {
 
 		int numberOfPaths = 1000000;
+
+		// time parameters
 		double initialTime = 0.0;
 		double finalTime = 1.0;
 		double timeStep = 0.1;
@@ -32,33 +33,26 @@ public class CallTest {
 
 		TimeDiscretization times = new TimeDiscretizationFromArray(initialTime, numberOfTimeSteps, timeStep);
 
-		BrownianMotionMultiD brownian = new BrownianMotionD(times, 1, numberOfPaths);
-
+		// model parameters
 		double initialValue = 100.0;
 		double riskFree = 0.1;
 		double sigma = 0.2;
 
+		// option parameters
 		double strike = 100.0;
 		double maturity = finalTime;
 
-		ProcessSimulation process = new EulerSchemeBlackScholes(brownian, initialValue, riskFree, sigma);
+		// Constructor of your processes
 
-		ProcessSimulation processAnalytic = new BlackScholesAnalyticProcess(brownian, initialValue, riskFree, sigma);
+		// Take the payoff of the option
 
-		RandomVariable lastValue = process.getProcessAtGivenTime(finalTime);
-		RandomVariable lastValueAnalytic = processAnalytic.getProcessAtGivenTime(finalTime);
+		// Take the price
 
-		DoubleUnaryOperator payoff = x -> {
-			return Math.max(x - strike, 0.0);
-		};
-
-		double price1 = lastValue.apply(payoff).getAverage() * Math.exp(-riskFree * maturity);
-		double price2 = lastValueAnalytic.apply(payoff).getAverage() * Math.exp(-riskFree * maturity);
 		double analyticPrice = AnalyticFormulas.blackScholesOptionValue(initialValue, riskFree, sigma, maturity,
 				strike);
 
-		System.out.println("Price with simulated process...: " + price1);
-		System.out.println("Price with analytic process....: " + price2);
+		System.out.println("Price with Euler scheme...: ");
+		System.out.println("Price with analytic process....: ");
 		System.out.println("Analytic price.................: " + analyticPrice);
 
 	}
