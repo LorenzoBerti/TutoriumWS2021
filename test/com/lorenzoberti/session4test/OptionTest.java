@@ -18,7 +18,7 @@ import net.finmath.time.TimeDiscretizationFromArray;
 
 class OptionTest {
 
-	double tolerance = 0.5;
+	double tolerance = 0.05;
 
 	int numberOfFactors = 2;
 	int numberOfPaths = 1000000;

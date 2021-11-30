@@ -17,6 +17,13 @@ public class CallOption extends EuropeanOption {
 		this.strike = strike;
 	}
 
+	/**
+	 * This methods return an object of type RandomVariable representing the payoff
+	 * of a call option
+	 * 
+	 * @param asset
+	 * @return call option payoff
+	 */
 	public RandomVariable getPayoff(RandomVariable asset) {
 
 		return asset.sub(strike).floor(0.0);

@@ -20,6 +20,12 @@ public class ExchangeOption extends EuropeanOption {
 		this.asset2 = asset2;
 	}
 
+	/**
+	 * This methods return an object of type RandomVariable representing the payoff
+	 * of an exchange option
+	 * 
+	 * @return exchange option payoff
+	 */
 	public RandomVariable getPayoff() {
 
 		return asset1.sub(asset2).floor(0.0);
