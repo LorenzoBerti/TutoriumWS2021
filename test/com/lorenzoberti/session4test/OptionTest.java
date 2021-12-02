@@ -18,14 +18,14 @@ import net.finmath.time.TimeDiscretizationFromArray;
 
 class OptionTest {
 
-	double tolerance = 0.05;
+	double tolerance = 0.5;
 
 	int numberOfFactors = 2;
-	int numberOfPaths = 1000000;
+	int numberOfPaths = 100000;
 
 	// Time parameter
 	double initialTime = 0.0;
-	double finalTime = 2.0;
+	double finalTime = 10.0;
 	double deltaT = 1.0;
 	int numberOfTimeSteps = (int) (finalTime / deltaT);
 
