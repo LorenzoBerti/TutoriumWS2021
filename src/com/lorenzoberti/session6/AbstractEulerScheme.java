@@ -106,7 +106,7 @@ public abstract class AbstractEulerScheme implements ProcessSimulation {
 		return path;
 	}
 
-	// This method generate the Euler scheme for a generic process
+	// This method generate the Euler scheme for a generical process
 	private void generate() {
 
 		// Write your code here
