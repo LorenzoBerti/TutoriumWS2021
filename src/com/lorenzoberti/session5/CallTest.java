@@ -51,9 +51,9 @@ public class CallTest {
 		double analyticPrice = AnalyticFormulas.blackScholesOptionValue(initialValue, riskFree, sigma, maturity,
 				strike);
 
-		System.out.println("Price with Euler scheme...: ");
-		System.out.println("Price with analytic process....: ");
-		System.out.println("Analytic price.................: " + analyticPrice);
+		System.out.println("Price with Euler scheme.................: ");
+		System.out.println("Price with analytic simulation process..: ");
+		System.out.println("Analytic price..........................: " + analyticPrice);
 
 	}
 

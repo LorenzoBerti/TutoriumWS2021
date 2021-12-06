@@ -53,18 +53,18 @@ public class ProcessTest {
 		double averagePrivate = lastValuePrivate.getAverage();
 
 		// ...and print
-		System.out.println("The Euler scheme average is: ");
-		System.out.println("The analytic average is: ");
-		System.out.println("The average with the private method is: " + averagePrivate);
+		System.out.println("The Euler scheme average is             : ");
+		System.out.println("The analytic simulation average is      : ");
+		System.out.println("The average with the private method is  : " + averagePrivate);
 
 		// Take their variance...
 
 		double variancePrivate = lastValuePrivate.getVariance();
 
 		// ...and print
-		System.out.println("The Monte Carlo variance is: ");
-		System.out.println("The analytic variance is: ");
-		System.out.println("The variance with the private method is: " + variancePrivate);
+		System.out.println("The Euler scheme variance is            : ");
+		System.out.println("The analytic simulation variance is     : ");
+		System.out.println("The variance with the private method is : " + variancePrivate);
 
 
 
