@@ -1,10 +1,14 @@
 package com.lorenzoberti.session5;
 
+import java.text.DecimalFormat;
+import java.util.Arrays;
 import java.util.function.DoubleUnaryOperator;
 
 import com.lorenzoberti.session3.BrownianMotionD;
 import com.lorenzoberti.session3.BrownianMotionMultiD;
 
+import net.finmath.plots.Named;
+import net.finmath.plots.Plot2D;
 import net.finmath.stochastic.RandomVariable;
 import net.finmath.time.TimeDiscretization;
 import net.finmath.time.TimeDiscretizationFromArray;
@@ -40,31 +44,68 @@ public class ProcessTest {
 		double mu = 0.1;
 		double sigma = 0.2;
 
-		// Constructor of the EulerSchemeBlackScholes
-
-		// Constructor of the BlackScholesAnalyticProcess
+		ProcessSimulation processEuler = new EulerSchemeBlackScholes(brownian, initialValue, mu, sigma);
+		ProcessSimulation processAnalytic = new BlackScholesAnalyticProcess(brownian, initialValue, mu, sigma);
 
 		// Take some value (for instance the last one) of your simulated processes
 
+		RandomVariable lastValueEuler = processEuler.getProcessAtGivenTime(finalTime);
+		RandomVariable lastValueAnalytic = processAnalytic.getProcessAtGivenTime(finalTime);
 		RandomVariable lastValuePrivate = getAssetAtSpecificTime(brownian, 0, mu, sigma, initialValue, finalTime);
 
 		// Take their average...
 
+		double averageEuler = lastValueEuler.getAverage();
+		double averageAnalytic = lastValueAnalytic.getAverage();
 		double averagePrivate = lastValuePrivate.getAverage();
 
 		// ...and print
-		System.out.println("The Euler scheme average is             : ");
-		System.out.println("The analytic simulation average is      : ");
+		System.out.println("The Euler scheme average is             : " + averageEuler);
+		System.out.println("The analytic simulation average is      : " + averageAnalytic);
 		System.out.println("The average with the private method is  : " + averagePrivate);
 
 		// Take their variance...
 
+		double varianceEuler = lastValueEuler.getVariance();
+		double varianceAnalytic = lastValueAnalytic.getVariance();
 		double variancePrivate = lastValuePrivate.getVariance();
 
 		// ...and print
-		System.out.println("The Euler scheme variance is            : ");
-		System.out.println("The analytic simulation variance is     : ");
+		System.out.println("The Euler scheme variance is            : " + varianceEuler);
+		System.out.println("The analytic simulation variance is     : " + varianceAnalytic);
 		System.out.println("The variance with the private method is : " + variancePrivate);
+
+		int pathIndex = 100;
+
+		DoubleUnaryOperator trajectoryEuler = t -> {
+			return processEuler.getSpecificValueOfSpecificPath(pathIndex, (int) t);
+		};
+
+		DoubleUnaryOperator trajectoryAnalytic = t -> {
+			return processAnalytic.getSpecificValueOfSpecificPath(pathIndex, (int) t);
+		};
+
+		Plot2D plot = new Plot2D(0, times.getNumberOfTimes(), times.getNumberOfTimes(),
+				Arrays.asList(new Named<DoubleUnaryOperator>("Analytic", trajectoryAnalytic),
+						new Named<DoubleUnaryOperator>("Euler", trajectoryEuler)));
+
+		plot.setYAxisNumberFormat(new DecimalFormat("0.0")).setTitle("Path simulation").setXAxisLabel("time")
+				.setYAxisLabel("Process");
+
+		plot.setIsLegendVisible(true);
+
+		plot.show();
+
+		Plot2D plotZoom = new Plot2D(40, 60, 20,
+				Arrays.asList(new Named<DoubleUnaryOperator>("Analytic", trajectoryAnalytic),
+						new Named<DoubleUnaryOperator>("Euler", trajectoryEuler)));
+
+		plotZoom.setYAxisNumberFormat(new DecimalFormat("0.0")).setTitle("Path simulation").setXAxisLabel("time")
+				.setYAxisLabel("Process");
+
+		plotZoom.setIsLegendVisible(true);
+
+		plotZoom.show();
 
 
 

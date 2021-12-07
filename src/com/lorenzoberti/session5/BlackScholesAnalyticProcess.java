@@ -3,8 +3,10 @@ package com.lorenzoberti.session5;
 
 import java.util.function.DoubleUnaryOperator;
 
+import com.lorenzoberti.session3.BrownianMotionD;
 import com.lorenzoberti.session3.BrownianMotionMultiD;
 
+import net.finmath.montecarlo.RandomVariableFromDoubleArray;
 import net.finmath.plots.Plot2D;
 import net.finmath.stochastic.RandomVariable;
 import net.finmath.time.TimeDiscretization;
@@ -27,7 +29,25 @@ public class BlackScholesAnalyticProcess implements ProcessSimulation {
 	private int numberOfPaths;
 	private RandomVariable[] allPaths;
 
-	// Write the constructor (possible overloading constructor?)
+	public BlackScholesAnalyticProcess(double initialValue, double drift, double sigma, TimeDiscretization times,
+			int numberOfPaths) {
+		super();
+		this.initialValue = initialValue;
+		this.drift = drift;
+		this.sigma = sigma;
+		this.times = times;
+		this.numberOfPaths = numberOfPaths;
+		this.brownian = new BrownianMotionD(times, 1, numberOfPaths);
+	}
+
+	public BlackScholesAnalyticProcess(BrownianMotionMultiD brownian, double initialValue, double drift, double sigma) {
+		super();
+		this.brownian = brownian;
+		this.initialValue = initialValue;
+		this.drift = drift;
+		this.sigma = sigma;
+		this.times = brownian.getTimeDiscretization();
+	}
 
 	@Override
 	public double getInitialValue() {
@@ -111,7 +131,17 @@ public class BlackScholesAnalyticProcess implements ProcessSimulation {
 
 	private void generate() {
 
-		// write here your code
+		allPaths = new RandomVariable[times.getNumberOfTimes()];
+
+		allPaths[0] = new RandomVariableFromDoubleArray(initialValue);
+
+		for (int i = 0; i < times.getNumberOfTimes() - 1; i++) {
+
+			double addTerm = (drift - sigma * sigma * 0.5) * times.getTimeStep(i);
+			RandomVariable diffusionTerm = brownian.getBrownianIncrement(i, 0).mult(sigma);
+
+			allPaths[i + 1] = diffusionTerm.add(addTerm).exp().mult(allPaths[i]);
+		}
 
 		}
 

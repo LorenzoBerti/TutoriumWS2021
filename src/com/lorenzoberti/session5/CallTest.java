@@ -3,7 +3,10 @@
  */
 package com.lorenzoberti.session5;
 
+import java.util.function.DoubleUnaryOperator;
+
 import net.finmath.functions.AnalyticFormulas;
+import net.finmath.stochastic.RandomVariable;
 import net.finmath.time.TimeDiscretization;
 import net.finmath.time.TimeDiscretizationFromArray;
 
@@ -23,12 +26,12 @@ public class CallTest {
 	 */
 	public static void main(String[] args) {
 
-		int numberOfPaths = 1000000;
+		int numberOfPaths = 100000;
 
 		// time parameters
 		double initialTime = 0.0;
 		double finalTime = 1.0;
-		double timeStep = 0.1;
+		double timeStep = 0.01;
 		int numberOfTimeSteps = (int) (finalTime / timeStep);
 
 		TimeDiscretization times = new TimeDiscretizationFromArray(initialTime, numberOfTimeSteps, timeStep);
@@ -42,17 +45,27 @@ public class CallTest {
 		double strike = 100.0;
 		double maturity = finalTime;
 
-		// Constructor of your processes
+		ProcessSimulation processEuler = new EulerSchemeBlackScholes(initialValue, riskFree, sigma, times,
+				numberOfPaths);
+		ProcessSimulation processAnalytic = new BlackScholesAnalyticProcess(initialValue, riskFree, sigma, times,
+				numberOfPaths);
 
-		// Take the payoff of the option
+		RandomVariable lastValueEuler = processEuler.getProcessAtGivenTime(maturity);
+		RandomVariable lastValueAnalytic = processAnalytic.getProcessAtGivenTime(maturity);
 
-		// Take the price
+		DoubleUnaryOperator payoff = x -> {
+			return Math.max(x - strike, 0);
+		};
 
+		double discountFactor = Math.exp(-riskFree * maturity);
+
+		double priceEuler = lastValueEuler.apply(payoff).mult(discountFactor).getAverage();
+		double priceAnalytic = lastValueAnalytic.apply(payoff).mult(discountFactor).getAverage();
 		double analyticPrice = AnalyticFormulas.blackScholesOptionValue(initialValue, riskFree, sigma, maturity,
 				strike);
 
-		System.out.println("Price with Euler scheme.................: ");
-		System.out.println("Price with analytic simulation process..: ");
+		System.out.println("Price with Euler scheme.................: " + priceEuler);
+		System.out.println("Price with analytic simulation process..: " + priceAnalytic);
 		System.out.println("Analytic price..........................: " + analyticPrice);
 
 	}
