@@ -52,6 +52,30 @@ public class CallTest {
 				strike);
 		double analyticPriceBachelier = AnalyticFormulas.bachelierOptionValue(forward, sigma, maturity, strike,
 				payoffUnit);
+		
+		System.out.println("                               Price         Error");
+		System.out.println();
+		System.out.println(
+				"Analytic price BS           : " + FORMATTERPOSITIVE.format(analyticPriceBS) + "        "
+				+ FORMATTERPERCENTAGE.format(Math.abs(analyticPriceBS - analyticPriceBS) / analyticPriceBS));
+		System.out
+				.println("Simulated BS process        : " + FORMATTERPOSITIVE.format(priceBS) + "        "
+						+ FORMATTERPERCENTAGE.format(Math.abs(analyticPriceBS - priceBS) / analyticPriceBS));
+		System.out.println(
+				"Analytic BS process         : " + FORMATTERPOSITIVE.format(priceBSAnalytic) + "        "
+				+ FORMATTERPERCENTAGE.format(Math.abs(analyticPriceBS - priceBSAnalytic) / analyticPriceBS));
+		// System.out.println();
+		System.out.println(
+				"Analytic price Bachelier    : " + FORMATTERPOSITIVE.format(analyticPriceBachelier) + "         "
+				+ FORMATTERPERCENTAGE
+						.format(Math.abs(analyticPriceBachelier - analyticPriceBachelier) / analyticPriceBachelier));
+		System.out.println("Simulated Bachelier process : " + FORMATTERPOSITIVE.format(priceBachelier)
+				+ "         "
+				+ FORMATTERPERCENTAGE
+						.format(Math.abs(analyticPriceBachelier - priceBachelier) / analyticPriceBachelier));
+
+
+	}
 
 	}
 }
