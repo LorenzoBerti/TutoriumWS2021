@@ -4,8 +4,13 @@
 package com.lorenzoberti.session6;
 
 import java.text.DecimalFormat;
+import java.util.function.DoubleUnaryOperator;
+
+import com.lorenzoberti.session5.BlackScholesAnalyticProcess;
+import com.lorenzoberti.session5.ProcessSimulation;
 
 import net.finmath.functions.AnalyticFormulas;
+import net.finmath.stochastic.RandomVariable;
 import net.finmath.time.TimeDiscretization;
 import net.finmath.time.TimeDiscretizationFromArray;
 
@@ -43,10 +48,24 @@ public class CallTest {
 		double forward = initialValue * Math.exp(riskFree * maturity);
 		double payoffUnit = Math.exp(-riskFree * maturity);
 
-		// Write here the constructors of the classes: BlackScholesAnalyticProcess,
-		// BlackScholesEulerScheme and BachelierEulerScheme. Take the values of the call
-		// option
-		// for each process, respectively. Then, compare with the analytic values.
+		ProcessSimulation processAnalyticBS = new BlackScholesAnalyticProcess(initialValue, riskFree, sigma, times,
+				numberOfPaths);
+		AbstractEulerScheme processBS = new BlackScholesEulerScheme(numberOfPaths, riskFree, sigma, initialValue,
+				times);
+		AbstractEulerScheme processBachelie = new BachelierEulerScheme(numberOfPaths, riskFree, sigma, initialValue,
+				times);
+
+		RandomVariable lastValueBS = processBS.getProcessAtGivenTime(finalTime);
+		RandomVariable lastValueBSAnalytic = processAnalyticBS.getProcessAtGivenTime(finalTime);
+		RandomVariable lastValueBachelier = processBachelie.getProcessAtGivenTime(finalTime);
+
+		DoubleUnaryOperator payoff = x -> {
+			return Math.max(x - strike, 0.0);
+		};
+
+		double priceBS = lastValueBS.apply(payoff).getAverage() * Math.exp(-riskFree * maturity);
+		double priceBSAnalytic = lastValueBSAnalytic.apply(payoff).getAverage() * Math.exp(-riskFree * maturity);
+		double priceBachelier = lastValueBachelier.apply(payoff).getAverage() * Math.exp(-riskFree * maturity);
 
 		double analyticPriceBS = AnalyticFormulas.blackScholesOptionValue(initialValue, riskFree, sigma, maturity,
 				strike);
