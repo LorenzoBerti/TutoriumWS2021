@@ -26,7 +26,7 @@ public class TestProcess {
 	 */
 	public static void main(String[] args) {
 
-		int numberOfPaths = 1000000;
+		int numberOfPaths = 100000;
 		double initialTime = 0.0;
 		double finalTime = 1.0;
 		double timeStep = 0.1;
@@ -44,7 +44,7 @@ public class TestProcess {
 		// BlackScholesEulerScheme, BlackScholesAnalyticProcess)
 		ProcessSimulation processAnalytic = new BlackScholesAnalyticProcess(brownian, initialValue, mu, sigma);
 		ProcessSimulation process = new EulerSchemeBlackScholes(brownian, initialValue, mu, sigma);
-		AbstractEulerScheme processNew = new BlackScholesEulerScheme(numberOfPaths, mu, sigma, initialValue, times);
+		AbstractEulerScheme processNew = new BlackScholesEulerScheme(numberOfPaths, initialValue, times, mu, sigma);
 
 		// Take the average and the variance and print the values
 		RandomVariable lastValueAnalytic = processAnalytic.getProcessAtGivenTime(finalTime);

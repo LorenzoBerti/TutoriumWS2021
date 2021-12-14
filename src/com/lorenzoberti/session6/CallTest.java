@@ -50,14 +50,14 @@ public class CallTest {
 
 		ProcessSimulation processAnalyticBS = new BlackScholesAnalyticProcess(initialValue, riskFree, sigma, times,
 				numberOfPaths);
-		AbstractEulerScheme processBS = new BlackScholesEulerScheme(numberOfPaths, riskFree, sigma, initialValue,
-				times);
-		AbstractEulerScheme processBachelie = new BachelierEulerScheme(numberOfPaths, riskFree, sigma, initialValue,
-				times);
+		AbstractEulerScheme processBS = new BlackScholesEulerScheme(numberOfPaths, initialValue, times, riskFree,
+				sigma);
+		AbstractEulerScheme processBachelier = new BachelierEulerScheme(numberOfPaths, initialValue, times, riskFree,
+				sigma);
 
 		RandomVariable lastValueBS = processBS.getProcessAtGivenTime(finalTime);
 		RandomVariable lastValueBSAnalytic = processAnalyticBS.getProcessAtGivenTime(finalTime);
-		RandomVariable lastValueBachelier = processBachelie.getProcessAtGivenTime(finalTime);
+		RandomVariable lastValueBachelier = processBachelier.getProcessAtGivenTime(finalTime);
 
 		DoubleUnaryOperator payoff = x -> {
 			return Math.max(x - strike, 0.0);

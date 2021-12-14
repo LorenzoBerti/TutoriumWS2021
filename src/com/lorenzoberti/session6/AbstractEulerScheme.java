@@ -9,6 +9,7 @@ import com.lorenzoberti.session3.BrownianMotionD;
 import com.lorenzoberti.session3.BrownianMotionMultiD;
 import com.lorenzoberti.session5.ProcessSimulation;
 
+import net.finmath.montecarlo.RandomVariableFromDoubleArray;
 import net.finmath.plots.Plot2D;
 import net.finmath.stochastic.RandomVariable;
 import net.finmath.time.TimeDiscretization;
@@ -42,6 +43,7 @@ public abstract class AbstractEulerScheme implements ProcessSimulation {
 		this.times = times;
 		this.brownian = new BrownianMotionD(times, 1, numberOfSimulations);
 	}
+
 
 	@Override
 	public double getInitialValue() {
@@ -109,7 +111,21 @@ public abstract class AbstractEulerScheme implements ProcessSimulation {
 	// This method generate the Euler scheme for a generical process
 	private void generate() {
 
-		// Write your code here
+		RandomVariable drift;
+		RandomVariable diffusion;
+
+		allPaths = new RandomVariable[times.getNumberOfTimes()];
+
+		allPaths[0] = new RandomVariableFromDoubleArray(initialValue);
+
+		for (int i = 0; i < times.getNumberOfTimes() - 1; i++) {
+
+			drift = getDrift(allPaths[i], i);
+			diffusion = getDiffusion(allPaths[i], i);
+
+			allPaths[i + 1] = allPaths[i].add(drift).add(diffusion);
+
+		}
 
 	}
 
