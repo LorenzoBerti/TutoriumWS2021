@@ -5,6 +5,13 @@ package com.lorenzoberti.session7;
 
 import java.text.DecimalFormat;
 
+import com.lorenzoberti.session3.BrownianMotionMultiD;
+import com.lorenzoberti.session5.BlackScholesAnalyticProcess;
+import com.lorenzoberti.session5.ProcessSimulation;
+import com.lorenzoberti.session6.AbstractEulerScheme;
+import com.lorenzoberti.session6.BachelierEulerScheme;
+import com.lorenzoberti.session6.BlackScholesEulerScheme;
+
 import net.finmath.functions.AnalyticFormulas;
 import net.finmath.montecarlo.RandomVariableFromDoubleArray;
 import net.finmath.stochastic.RandomVariable;
@@ -54,12 +61,22 @@ public class OptionTest {
 
 		// Call option test
 
-		// Call option constructor
+		FinancialProductInterface call = new CallOption(strike, maturity);
 
 		// Process constructor: BlackScholesAnalyticProcess, BlackScholesEulerScheme and
 		// BachelierEulerScheme
+		ProcessSimulation processAnalyticBS = new BlackScholesAnalyticProcess(initialValue, riskFree, sigma, times,
+				numberOfPaths);
+		AbstractEulerScheme processEulerBS = new BlackScholesEulerScheme(numberOfPaths, initialValue, times, riskFree,
+				sigma);
+		AbstractEulerScheme processEulerBachelier = new BachelierEulerScheme(numberOfPaths, initialValue, times,
+				riskFree, sigma);
 
 		// Get the price of the call option for each simulation process
+
+		double callBS = call.getPriceAsDouble(processAnalyticBS, discountFactor);
+		double callBSEuler = call.getPriceAsDouble(processEulerBS, discountFactor);
+		double callBachelier = call.getPriceAsDouble(processEulerBachelier, discountFactor);
 
 		// Analytic prices
 		double analyticPriceBS = AnalyticFormulas.blackScholesOptionValue(initialValue, riskFree, sigma, maturity,
@@ -92,12 +109,34 @@ public class OptionTest {
 		double sigma2 = 0.2;
 
 		// Process constructor: BlackScholesAnalyticProcess and BlackScholesEulerScheme
+		ProcessSimulation processAnalyticBS2 = new BlackScholesAnalyticProcess(initialValue2, riskFree, sigma2, times,
+				numberOfPaths);
+		AbstractEulerScheme processEulerBS2 = new BlackScholesEulerScheme(numberOfPaths, initialValue2, times, riskFree,
+				sigma2);
 
 		// Recall: we need the covariance between the two asset!
 
+		BrownianMotionMultiD brownian1 = processAnalyticBS.getStochasticDriver();
+		BrownianMotionMultiD brownian2 = processAnalyticBS2.getStochasticDriver();
+
+		RandomVariable brownian1AtMaturity = brownian1.getBrownianMotionAtSpecificTime(0, maturity);
+		RandomVariable brownian2AtMaturity = brownian2.getBrownianMotionAtSpecificTime(0, maturity);
+
+		double covariance = brownian1AtMaturity.covariance(brownian2AtMaturity).getAverage();
+
+		double vol = sigma * sigma - 2 * covariance * sigma * sigma2 + sigma2 * sigma2;
+
+		vol = Math.sqrt(vol);
+
 		// Constructor of the exchange option
 
+		FinancialProductInterface exchangeBS = new ExchangeOption(maturity, processAnalyticBS);
+		FinancialProductInterface exchangeEuler = new ExchangeOption(maturity, processEulerBS);
+
 		// Take the prices
+
+		double exchangeBSAnalytic = exchangeBS.getPriceAsDouble(processAnalyticBS2, discountFactor);
+		double exchangeBSEuler = exchangeEuler.getPriceAsDouble(processEulerBS2, discountFactor);
 
 		// Analytic price
 		double exchangeAnalytic = AnalyticFormulas.blackScholesOptionValue(initialValue, 0, vol, maturity,
