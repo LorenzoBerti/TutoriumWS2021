@@ -3,6 +3,7 @@
  */
 package com.lorenzoberti.session8.parallelization;
 
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.IntStream;
 
 /**
@@ -11,18 +12,18 @@ import java.util.stream.IntStream;
  */
 public class Counter {
 
-	// private static AtomicInteger parallelCount = new AtomicInteger();
-	private static int parallelCount = 0;
+	private static AtomicInteger parallelCount = new AtomicInteger();
+	// private static int parallelCount = 0;
 	private static int sequentialCount = 0;
 
 	public static void main(String[] args) {
 
-		int n = 10000000;
+		int n = 10000000; // 1*10^7
 
 		// I count in parallel:
 		IntStream.range(0, n).parallel().forEach(i -> {
-			parallelCount++;
-			// parallelCount.getAndIncrement();
+			// parallelCount++;
+			parallelCount.getAndIncrement();
 		});
 
 		// I count sequentially:
