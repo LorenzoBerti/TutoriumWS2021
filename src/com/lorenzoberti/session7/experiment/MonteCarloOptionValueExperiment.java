@@ -16,6 +16,9 @@ import net.finmath.time.TimeDiscretization;
 import net.finmath.time.TimeDiscretizationFromArray;
 
 /**
+ * This class compares the efficiency of some methods we have seen for
+ * evaluating a call option under the Black-Scholes Model.
+ * 
  * @author Lorenzo Berti
  *
  */
@@ -74,6 +77,11 @@ public class MonteCarloOptionValueExperiment {
 
 	}
 
+	/**
+	 * This method evaluates the call option using the object Stream.
+	 * 
+	 * @return the value of a call option.
+	 */
 	private double getValueUsingStreams() {
 
 		DoubleUnaryOperator model = z -> initialValue * Math
@@ -93,6 +101,11 @@ public class MonteCarloOptionValueExperiment {
 		return value / numberOfSimulation;
 	}
 
+	/**
+	 * This method evaluates a call option using the RandomVariable object.
+	 * 
+	 * @return the value of a call option.
+	 */
 	private double getValueUsingRandomVariable() {
 
 		MersenneTwister mersenne = new MersenneTwister(seed);
@@ -112,6 +125,11 @@ public class MonteCarloOptionValueExperiment {
 		return payoff.getAverage() * Math.exp(-riskFreeRate * maturity);
 	}
 
+	/**
+	 * This method evaluates a call option using for loop.
+	 * 
+	 * @return the value of a call option.
+	 */
 	private double getValueUsingForLoop() {
 
 		MersenneTwister mersenne = new MersenneTwister(seed);
@@ -132,6 +150,12 @@ public class MonteCarloOptionValueExperiment {
 		return sum / numberOfSimulation;
 	}
 
+	/**
+	 * This method gives you the analytic value of a call option using the
+	 * Black-Scholes formula.
+	 * 
+	 * @return analytic value of a call option.
+	 */
 	private double getAnalyticValue() {
 
 		return AnalyticFormulas.blackScholesOptionValue(initialValue, riskFreeRate, volatility, maturity, strike);

@@ -16,6 +16,9 @@ import net.finmath.functions.NormalDistribution;
 import net.finmath.randomnumbers.MersenneTwister;
 
 /**
+ * This class shows and compares various methods for parallelizing the
+ * Monte-Carlo valuation of a call option under the Black-Scholes model.
+ * 
  * @author Lorenzo Berti
  *
  */
