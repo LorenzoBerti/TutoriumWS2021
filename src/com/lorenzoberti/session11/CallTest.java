@@ -1,9 +1,11 @@
 package com.lorenzoberti.session11;
 
 import java.text.DecimalFormat;
-import java.util.function.DoubleUnaryOperator;
+
+import com.lorenzoberti.session7.CallOption;
 
 import net.finmath.functions.AnalyticFormulas;
+import net.finmath.montecarlo.RandomVariableFromDoubleArray;
 import net.finmath.stochastic.RandomVariable;
 import net.finmath.time.TimeDiscretization;
 import net.finmath.time.TimeDiscretizationFromArray;
@@ -51,9 +53,11 @@ public class CallTest {
 		double analyticPrice = AnalyticFormulas.blackScholesOptionValue(initialValue, riskFree, sigma, maturity,
 				strike);
 
-		DoubleUnaryOperator payoff = x -> {
-			return Math.max(x - strike, 0.0);
-		};
+		// Let's ceate the object CallOption
+		final CallOption call = new CallOption(maturity, strike);
+
+		// We need the discount factor as RandomVariable
+		RandomVariable discountFactor = new RandomVariableFromDoubleArray(Math.exp(-riskFree * maturity));
 
 		System.out.println("Number of experiments: " + numberOfExperiments + "\n");
 
@@ -66,11 +70,8 @@ public class CallTest {
 			AbstractEulerScheme transformEulerBS = new LogEulerScheme(numberOfPaths, initialValue, times, riskFree,
 					sigma);
 
-			RandomVariable lastValueStandard = standardEulerBS.getProcessAtGivenTime(finalTime);
-			RandomVariable lastValueTransform = transformEulerBS.getProcessAtGivenTime(finalTime);
-
-			double priceStandardEuler = lastValueStandard.apply(payoff).getAverage() * Math.exp(-riskFree * maturity);
-			double priceTransformEuler = lastValueTransform.apply(payoff).getAverage() * Math.exp(-riskFree * maturity);
+			double priceStandardEuler = call.getPriceAsDouble(standardEulerBS, discountFactor);
+			double priceTransformEuler = call.getPriceAsDouble(transformEulerBS, discountFactor);
 
 			sumStandardEulerError += Math.abs(analyticPrice - priceStandardEuler) / analyticPrice;
 			sumTransformEulerError += Math.abs(analyticPrice - priceTransformEuler) / analyticPrice;
