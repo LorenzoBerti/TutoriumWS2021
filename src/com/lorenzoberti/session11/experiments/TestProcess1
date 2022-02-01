@@ -1,0 +1,314 @@
+Data:
+
+Initial value...........: 100.0
+Drift...................: 5.00%
+Std. deviation..........: 20.00%
+Final time..............: 1.0
+---------------------------------------------------
+
+---------------------------------------------------
+
+Analytic average......: 101.3506
+Analytic variance.....: 920.6967
+
+Number of experiments...: 5
+Number of paths.........: 10
+Number of time steps....: 10
+
+			 Value 		 Error 
+
+Experiment..............: 1
+
+Euler average.........: 99.9781	 Δm = 1.354%
+Log Euler average.....: 95.3605	 Δm = 5.910%
+
+Euler variance........: 156.5827	 ΔV = 82.993%
+Log Euler variance....: 136.6612	 ΔV = 85.157%
+
+Experiment..............: 2
+
+Euler average.........: 102.6932	 Δm = 1.325%
+Log Euler average.....: 99.8786	 Δm = 1.452%
+
+Euler variance........: 400.0487	 ΔV = 56.549%
+Log Euler variance....: 198.8668	 ΔV = 78.400%
+
+Experiment..............: 3
+
+Euler average.........: 99.7191	 Δm = 1.610%
+Log Euler average.....: 109.1515	 Δm = 7.697%
+
+Euler variance........: 129.1035	 ΔV = 85.978%
+Log Euler variance....: 567.3242	 ΔV = 38.381%
+
+Experiment..............: 4
+
+Euler average.........: 114.2861	 Δm = 12.763%
+Log Euler average.....: 107.3678	 Δm = 5.937%
+
+Euler variance........: 608.9978	 ΔV = 33.855%
+Log Euler variance....: 853.2865	 ΔV = 7.322%
+
+Experiment..............: 5
+
+Euler average.........: 105.0492	 Δm = 3.649%
+Log Euler average.....: 105.8301	 Δm = 4.420%
+
+Euler variance........: 299.7604	 ΔV = 67.442%
+Log Euler variance....: 409.9698	 ΔV = 55.472%
+
+---------------------------------------------------
+
+Analytic average......: 109.0664
+Analytic variance.....: 557.9710
+
+Number of experiments...: 5
+Number of paths.........: 100
+Number of time steps....: 10
+
+			 Value 		 Error 
+
+Experiment..............: 1
+
+Euler average.........: 103.0893	 Δm = 5.480%
+Log Euler average.....: 104.1294	 Δm = 4.527%
+
+Euler variance........: 481.9024	 ΔV = 13.633%
+Log Euler variance....: 394.0395	 ΔV = 29.380%
+
+Experiment..............: 2
+
+Euler average.........: 105.7922	 Δm = 3.002%
+Log Euler average.....: 103.0486	 Δm = 5.518%
+
+Euler variance........: 497.3153	 ΔV = 10.871%
+Log Euler variance....: 423.3661	 ΔV = 24.124%
+
+Experiment..............: 3
+
+Euler average.........: 102.7508	 Δm = 5.791%
+Log Euler average.....: 105.4066	 Δm = 3.356%
+
+Euler variance........: 478.6915	 ΔV = 14.209%
+Log Euler variance....: 419.4152	 ΔV = 24.832%
+
+Experiment..............: 4
+
+Euler average.........: 106.8534	 Δm = 2.029%
+Log Euler average.....: 106.9044	 Δm = 1.982%
+
+Euler variance........: 567.4375	 ΔV = 1.697%
+Log Euler variance....: 525.2753	 ΔV = 5.860%
+
+Experiment..............: 5
+
+Euler average.........: 105.5062	 Δm = 3.264%
+Log Euler average.....: 105.8149	 Δm = 2.981%
+
+Euler variance........: 483.7791	 ΔV = 13.297%
+Log Euler variance....: 606.3827	 ΔV = 8.676%
+
+---------------------------------------------------
+
+Analytic average......: 105.2215
+Analytic variance.....: 438.8066
+
+Number of experiments...: 5
+Number of paths.........: 1000
+Number of time steps....: 10
+
+			 Value 		 Error 
+
+Experiment..............: 1
+
+Euler average.........: 106.1077	 Δm = 0.842%
+Log Euler average.....: 104.8651	 Δm = 0.339%
+
+Euler variance........: 465.4071	 ΔV = 6.062%
+Log Euler variance....: 439.0730	 ΔV = 0.061%
+
+Experiment..............: 2
+
+Euler average.........: 105.5226	 Δm = 0.286%
+Log Euler average.....: 104.2136	 Δm = 0.958%
+
+Euler variance........: 453.2292	 ΔV = 3.287%
+Log Euler variance....: 432.8610	 ΔV = 1.355%
+
+Experiment..............: 3
+
+Euler average.........: 104.8250	 Δm = 0.377%
+Log Euler average.....: 105.6748	 Δm = 0.431%
+
+Euler variance........: 447.1124	 ΔV = 1.893%
+Log Euler variance....: 470.8524	 ΔV = 7.303%
+
+Experiment..............: 4
+
+Euler average.........: 104.8938	 Δm = 0.311%
+Log Euler average.....: 105.1574	 Δm = 0.061%
+
+Euler variance........: 421.6847	 ΔV = 3.902%
+Log Euler variance....: 425.5569	 ΔV = 3.019%
+
+Experiment..............: 5
+
+Euler average.........: 105.4939	 Δm = 0.259%
+Log Euler average.....: 105.7329	 Δm = 0.486%
+
+Euler variance........: 442.7169	 ΔV = 0.891%
+Log Euler variance....: 465.4902	 ΔV = 6.081%
+
+---------------------------------------------------
+
+Analytic average......: 105.0747
+Analytic variance.....: 457.8884
+
+Number of experiments...: 5
+Number of paths.........: 10000
+Number of time steps....: 10
+
+			 Value 		 Error 
+
+Experiment..............: 1
+
+Euler average.........: 105.1269	 Δm = 0.050%
+Log Euler average.....: 105.0431	 Δm = 0.030%
+
+Euler variance........: 447.2398	 ΔV = 2.326%
+Log Euler variance....: 453.6722	 ΔV = 0.921%
+
+Experiment..............: 2
+
+Euler average.........: 104.9261	 Δm = 0.141%
+Log Euler average.....: 104.7263	 Δm = 0.332%
+
+Euler variance........: 446.9438	 ΔV = 2.390%
+Log Euler variance....: 448.5248	 ΔV = 2.045%
+
+Experiment..............: 3
+
+Euler average.........: 104.9003	 Δm = 0.166%
+Log Euler average.....: 105.2743	 Δm = 0.190%
+
+Euler variance........: 442.8537	 ΔV = 3.283%
+Log Euler variance....: 448.7573	 ΔV = 1.994%
+
+Experiment..............: 4
+
+Euler average.........: 105.1190	 Δm = 0.042%
+Log Euler average.....: 105.2755	 Δm = 0.191%
+
+Euler variance........: 438.6895	 ΔV = 4.193%
+Log Euler variance....: 465.9705	 ΔV = 1.765%
+
+Experiment..............: 5
+
+Euler average.........: 105.3053	 Δm = 0.219%
+Log Euler average.....: 105.2623	 Δm = 0.178%
+
+Euler variance........: 437.9290	 ΔV = 4.359%
+Log Euler variance....: 452.5066	 ΔV = 1.175%
+
+---------------------------------------------------
+
+Analytic average......: 104.9885
+Analytic variance.....: 449.9443
+
+Number of experiments...: 5
+Number of paths.........: 100000
+Number of time steps....: 10
+
+			 Value 		 Error 
+
+Experiment..............: 1
+
+Euler average.........: 105.1538	 Δm = 0.157%
+Log Euler average.....: 105.1333	 Δm = 0.138%
+
+Euler variance........: 444.2795	 ΔV = 1.259%
+Log Euler variance....: 451.5696	 ΔV = 0.361%
+
+Experiment..............: 2
+
+Euler average.........: 105.0921	 Δm = 0.099%
+Log Euler average.....: 105.1392	 Δm = 0.143%
+
+Euler variance........: 443.7426	 ΔV = 1.378%
+Log Euler variance....: 449.0728	 ΔV = 0.194%
+
+Experiment..............: 3
+
+Euler average.........: 105.1745	 Δm = 0.177%
+Log Euler average.....: 105.1005	 Δm = 0.107%
+
+Euler variance........: 449.6254	 ΔV = 0.071%
+Log Euler variance....: 448.6967	 ΔV = 0.277%
+
+Experiment..............: 4
+
+Euler average.........: 105.0422	 Δm = 0.051%
+Log Euler average.....: 105.0659	 Δm = 0.074%
+
+Euler variance........: 444.8578	 ΔV = 1.130%
+Log Euler variance....: 446.0579	 ΔV = 0.864%
+
+Experiment..............: 5
+
+Euler average.........: 105.0177	 Δm = 0.028%
+Log Euler average.....: 105.1411	 Δm = 0.145%
+
+Euler variance........: 445.0927	 ΔV = 1.078%
+Log Euler variance....: 452.2948	 ΔV = 0.522%
+
+---------------------------------------------------
+
+Analytic average......: 105.1269
+Analytic variance.....: 452.2868
+
+Number of experiments...: 5
+Number of paths.........: 1000000
+Number of time steps....: 10
+
+			 Value 		 Error 
+
+Experiment..............: 1
+
+Euler average.........: 105.0887	 Δm = 0.036%
+Log Euler average.....: 105.1265	 Δm = 0.000%
+
+Euler variance........: 444.2737	 ΔV = 1.772%
+Log Euler variance....: 451.6700	 ΔV = 0.136%
+
+Experiment..............: 2
+
+Euler average.........: 105.1336	 Δm = 0.006%
+Log Euler average.....: 105.1548	 Δm = 0.027%
+
+Euler variance........: 445.8219	 ΔV = 1.429%
+Log Euler variance....: 451.4342	 ΔV = 0.189%
+
+Experiment..............: 3
+
+Euler average.........: 105.1175	 Δm = 0.009%
+Log Euler average.....: 105.1088	 Δm = 0.017%
+
+Euler variance........: 445.5868	 ΔV = 1.481%
+Log Euler variance....: 451.1323	 ΔV = 0.255%
+
+Experiment..............: 4
+
+Euler average.........: 105.1057	 Δm = 0.020%
+Log Euler average.....: 105.1065	 Δm = 0.019%
+
+Euler variance........: 445.2201	 ΔV = 1.562%
+Log Euler variance....: 450.2616	 ΔV = 0.448%
+
+Experiment..............: 5
+
+Euler average.........: 105.1232	 Δm = 0.004%
+Log Euler average.....: 105.1635	 Δm = 0.035%
+
+Euler variance........: 444.6856	 ΔV = 1.681%
+Log Euler variance....: 452.3704	 ΔV = 0.018%
+

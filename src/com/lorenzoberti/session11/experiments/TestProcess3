@@ -1,0 +1,217 @@
+Data:
+
+Initial value...........: 100.0
+Drift...................: 5.00%
+Std. deviation..........: 20.00%
+Final time..............: 1.0
+---------------------------------------------------
+
+---------------------------------------------------
+
+Analytic average......: 105.9487
+Analytic variance.....: 191.0416
+
+Number of experiments...: 5
+Number of paths.........: 10
+Number of time steps....: 1000
+
+			 Value 		 Error 
+
+Experiment..............: 1
+
+Euler average.........: 106.3998	 Δm = 0.426%
+Log Euler average.....: 109.3842	 Δm = 3.243%
+
+Euler variance........: 292.0241	 ΔV = 52.859%
+Log Euler variance....: 136.9980	 ΔV = 28.289%
+
+Experiment..............: 2
+
+Euler average.........: 97.3476	 Δm = 8.118%
+Log Euler average.....: 101.4629	 Δm = 4.234%
+
+Euler variance........: 392.1571	 ΔV = 105.273%
+Log Euler variance....: 577.2269	 ΔV = 202.147%
+
+Experiment..............: 3
+
+Euler average.........: 101.1699	 Δm = 4.511%
+Log Euler average.....: 109.4287	 Δm = 3.285%
+
+Euler variance........: 156.8017	 ΔV = 17.923%
+Log Euler variance....: 279.7603	 ΔV = 46.439%
+
+Experiment..............: 4
+
+Euler average.........: 99.6784	 Δm = 5.918%
+Log Euler average.....: 100.7193	 Δm = 4.936%
+
+Euler variance........: 199.9322	 ΔV = 4.654%
+Log Euler variance....: 489.7966	 ΔV = 156.382%
+
+Experiment..............: 5
+
+Euler average.........: 107.0612	 Δm = 1.050%
+Log Euler average.....: 103.0606	 Δm = 2.726%
+
+Euler variance........: 526.0093	 ΔV = 175.338%
+Log Euler variance....: 200.5091	 ΔV = 4.956%
+
+---------------------------------------------------
+
+Analytic average......: 109.5198
+Analytic variance.....: 658.4912
+
+Number of experiments...: 5
+Number of paths.........: 100
+Number of time steps....: 1000
+
+			 Value 		 Error 
+
+Experiment..............: 1
+
+Euler average.........: 104.3007	 Δm = 4.765%
+Log Euler average.....: 105.1800	 Δm = 3.963%
+
+Euler variance........: 382.5021	 ΔV = 41.912%
+Log Euler variance....: 457.7156	 ΔV = 30.490%
+
+Experiment..............: 2
+
+Euler average.........: 102.4041	 Δm = 6.497%
+Log Euler average.....: 102.0259	 Δm = 6.843%
+
+Euler variance........: 392.2555	 ΔV = 40.431%
+Log Euler variance....: 386.6656	 ΔV = 41.280%
+
+Experiment..............: 3
+
+Euler average.........: 103.2769	 Δm = 5.700%
+Log Euler average.....: 106.4917	 Δm = 2.765%
+
+Euler variance........: 432.2747	 ΔV = 34.354%
+Log Euler variance....: 511.4845	 ΔV = 22.325%
+
+Experiment..............: 4
+
+Euler average.........: 105.7055	 Δm = 3.483%
+Log Euler average.....: 105.2054	 Δm = 3.939%
+
+Euler variance........: 371.5740	 ΔV = 43.572%
+Log Euler variance....: 404.6754	 ΔV = 38.545%
+
+Experiment..............: 5
+
+Euler average.........: 105.5282	 Δm = 3.645%
+Log Euler average.....: 106.8975	 Δm = 2.394%
+
+Euler variance........: 355.8261	 ΔV = 45.963%
+Log Euler variance....: 446.7012	 ΔV = 32.163%
+
+---------------------------------------------------
+
+Analytic average......: 105.0155
+Analytic variance.....: 435.8008
+
+Number of experiments...: 5
+Number of paths.........: 1000
+Number of time steps....: 1000
+
+			 Value 		 Error 
+
+Experiment..............: 1
+
+Euler average.........: 105.6334	 Δm = 0.588%
+Log Euler average.....: 103.9735	 Δm = 0.992%
+
+Euler variance........: 416.3449	 ΔV = 4.464%
+Log Euler variance....: 427.4483	 ΔV = 1.917%
+
+Experiment..............: 2
+
+Euler average.........: 105.0652	 Δm = 0.047%
+Log Euler average.....: 104.3546	 Δm = 0.629%
+
+Euler variance........: 424.5878	 ΔV = 2.573%
+Log Euler variance....: 441.6217	 ΔV = 1.336%
+
+Experiment..............: 3
+
+Euler average.........: 105.3362	 Δm = 0.305%
+Log Euler average.....: 105.2067	 Δm = 0.182%
+
+Euler variance........: 440.1519	 ΔV = 0.998%
+Log Euler variance....: 474.0762	 ΔV = 8.783%
+
+Experiment..............: 4
+
+Euler average.........: 104.9912	 Δm = 0.023%
+Log Euler average.....: 106.2172	 Δm = 1.144%
+
+Euler variance........: 449.8535	 ΔV = 3.225%
+Log Euler variance....: 435.7688	 ΔV = 0.007%
+
+Experiment..............: 5
+
+Euler average.........: 105.5881	 Δm = 0.545%
+Log Euler average.....: 105.6449	 Δm = 0.599%
+
+Euler variance........: 435.8438	 ΔV = 0.010%
+Log Euler variance....: 477.5692	 ΔV = 9.584%
+
+---------------------------------------------------
+
+Analytic average......: 105.0458
+Analytic variance.....: 459.7757
+
+Number of experiments...: 5
+Number of paths.........: 10000
+Number of time steps....: 1000
+
+			 Value 		 Error 
+
+Experiment..............: 1
+
+Euler average.........: 105.3221	 Δm = 0.263%
+Log Euler average.....: 105.1628	 Δm = 0.111%
+
+Euler variance........: 439.5799	 ΔV = 4.393%
+Log Euler variance....: 445.0344	 ΔV = 3.206%
+
+Experiment..............: 2
+
+Euler average.........: 105.1378	 Δm = 0.088%
+Log Euler average.....: 105.0251	 Δm = 0.020%
+
+Euler variance........: 447.8028	 ΔV = 2.604%
+Log Euler variance....: 450.3227	 ΔV = 2.056%
+
+Experiment..............: 3
+
+Euler average.........: 105.1315	 Δm = 0.082%
+Log Euler average.....: 104.8903	 Δm = 0.148%
+
+Euler variance........: 448.5553	 ΔV = 2.440%
+Log Euler variance....: 449.0103	 ΔV = 2.341%
+
+Experiment..............: 4
+
+Euler average.........: 105.2297	 Δm = 0.175%
+Log Euler average.....: 105.2238	 Δm = 0.169%
+
+Euler variance........: 456.3213	 ΔV = 0.751%
+Log Euler variance....: 464.6022	 ΔV = 1.050%
+
+Experiment..............: 5
+
+Euler average.........: 105.2154	 Δm = 0.162%
+Log Euler average.....: 105.3498	 Δm = 0.289%
+
+Euler variance........: 453.5583	 ΔV = 1.352%
+Log Euler variance....: 459.6926	 ΔV = 0.018%
+
+Exception in thread "main" java.lang.OutOfMemoryError: Java heap space
+	at com.lorenzoberti.session3.BrownianMotionD.generate(BrownianMotionD.java:124)
+	at com.lorenzoberti.session3.BrownianMotionD.getAllPaths(BrownianMotionD.java:47)
+	at com.lorenzoberti.session3.BrownianMotionD.getBrownianMotionAtSpecificTime(BrownianMotionD.java:55)
+	at com.lorenzoberti.session11.TestProcess.main(TestProcess.java:65)

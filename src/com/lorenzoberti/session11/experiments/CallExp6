@@ -1,0 +1,70 @@
+Data: 
+
+Risk free rate..........: 5.00%
+Std. deviation..........: 20.00%
+Initial value...........: 100.0
+Option strike...........: 100.0
+Option maturity.........: 1.0
+Analytic price BS.......: 10.4506
+---------------------------------------------------------------------------------------
+
+Number of experiments...: 50
+Number of paths.........: 10
+Number of time steps....: 100
+
+Average price standard Euler scheme...: 10.6595	 error: 1.999%
+Average price log Euler scheme........: 11.2037	 error: 7.206%
+Average error standard Euler scheme...: 38.177%
+Average error log Euler scheme........: 44.259%
+---------------------------------------------------------------------------------------
+
+Number of experiments...: 50
+Number of paths.........: 100
+Number of time steps....: 100
+
+Average price standard Euler scheme...: 10.4128	 error: 0.362%
+Average price log Euler scheme........: 10.8401	 error: 3.728%
+Average error standard Euler scheme...: 10.988%
+Average error log Euler scheme........: 10.905%
+---------------------------------------------------------------------------------------
+
+Number of experiments...: 50
+Number of paths.........: 1000
+Number of time steps....: 100
+
+Average price standard Euler scheme...: 10.5526	 error: 0.976%
+Average price log Euler scheme........: 10.3819	 error: 0.657%
+Average error standard Euler scheme...: 3.940%
+Average error log Euler scheme........: 3.508%
+---------------------------------------------------------------------------------------
+
+Number of experiments...: 50
+Number of paths.........: 10000
+Number of time steps....: 100
+
+Average price standard Euler scheme...: 10.4230	 error: 0.264%
+Average price log Euler scheme........: 10.4473	 error: 0.031%
+Average error standard Euler scheme...: 1.227%
+Average error log Euler scheme........: 1.058%
+---------------------------------------------------------------------------------------
+
+Number of experiments...: 50
+Number of paths.........: 100000
+Number of time steps....: 100
+
+Average price standard Euler scheme...: 10.4445	 error: 0.058%
+Average price log Euler scheme........: 10.4551	 error: 0.043%
+Average error standard Euler scheme...: 0.370%
+Average error log Euler scheme........: 0.368%
+---------------------------------------------------------------------------------------
+
+Number of experiments...: 50
+Number of paths.........: 1000000
+Number of time steps....: 100
+
+Exception in thread "main" java.lang.OutOfMemoryError: Java heap space
+	at net.finmath.montecarlo.RandomVariableFromDoubleArray.mult(RandomVariableFromDoubleArray.java:1147)
+	at com.lorenzoberti.session11.BlackScholesEulerScheme.getDiffusion(BlackScholesEulerScheme.java:55)
+	at com.lorenzoberti.session11.AbstractEulerScheme.generate(AbstractEulerScheme.java:130)
+	at com.lorenzoberti.session11.AbstractEulerScheme.getProcessAtGivenTime(AbstractEulerScheme.java:82)
+	at com.lorenzoberti.session11.CallTest.main(CallTest.java:84)
