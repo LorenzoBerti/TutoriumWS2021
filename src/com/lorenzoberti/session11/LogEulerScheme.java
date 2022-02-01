@@ -10,6 +10,9 @@ import net.finmath.stochastic.RandomVariable;
 import net.finmath.time.TimeDiscretization;
 
 /**
+ * This class implements the methods getDrift and getDiffusion for the Log-Euler
+ * discretization of the Black-Scholes model.
+ * 
  * @author Lorenzo Berti
  *
  */
@@ -24,9 +27,24 @@ public class LogEulerScheme extends AbstractEulerScheme {
 		this.mu = mu;
 		this.sigma = sigma;
 
+		// Transform is the exponential function;
 		this.transform = (x -> Math.exp(x));
+
+		// inverseTransform is the exponential function;
 		this.inverseTransform = (x -> Math.log(x));
 
+	}
+
+	public LogEulerScheme(BrownianMotionMultiD brownian, double mu, double sigma, double initialValue) {
+		super(brownian, initialValue);
+		this.mu = mu;
+		this.sigma = sigma;
+
+		// Transform is the exponential function;
+		this.transform = (x -> Math.exp(x));
+
+		// inverseTransform is the logarithmic function
+		this.inverseTransform = (x -> Math.log(x));
 	}
 
 	@Override

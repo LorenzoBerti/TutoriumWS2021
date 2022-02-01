@@ -33,8 +33,8 @@ public abstract class AbstractEulerScheme implements ProcessSimulation {
 	protected abstract RandomVariable getDrift(RandomVariable lastRealization, int timeIndex);
 	protected abstract RandomVariable getDiffusion(RandomVariable lastRealization, int timeIndex);
 
-	// transform: exp()
-	// inverseTransform: log()
+	// The two function: transform and inverse transform
+	// exp() and log() for generalized Euler
 	protected DoubleUnaryOperator transform;
 	protected DoubleUnaryOperator inverseTransform;
 
@@ -42,6 +42,12 @@ public abstract class AbstractEulerScheme implements ProcessSimulation {
 		this.initialValue = initialValue;
 		this.times = times;
 		this.brownian = new BrownianMotionD(times, 1, numberOfSimulations);
+	}
+
+	protected AbstractEulerScheme(BrownianMotionMultiD brownian, double initialValue) {
+		this.initialValue = initialValue;
+		this.brownian = brownian;
+		this.times = brownian.getTimeDiscretization();
 	}
 
 

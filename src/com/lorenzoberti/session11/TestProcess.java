@@ -37,8 +37,6 @@ public class TestProcess {
 
 		TimeDiscretization times = new TimeDiscretizationFromArray(initialTime, numberOfTimeSteps, timeStep);
 
-		// BrownianMotionMultiD brownian = new BrownianMotionD(times, 1, numberOfPaths);
-
 		double initialValue = 100.0;
 		double mu = 0.05;
 		double sigma = 0.2;
@@ -50,21 +48,6 @@ public class TestProcess {
 			return initialValue * Math.exp(drift + diffusion);
 
 		};
-
-//		AbstractEulerScheme euler = new BlackScholesEulerScheme(numberOfPaths, initialValue, times, mu, sigma);
-//		AbstractEulerScheme logEuler = new LogEulerScheme(numberOfPaths, initialValue, times, mu, sigma);
-//
-//		RandomVariable lastValueAnalytic = brownian.getBrownianMotionAtSpecificTime(0, finalTime)
-//				.apply(analyticProcess);
-//		double averageAnalytic = lastValueAnalytic.getAverage();
-//		double varianceAnalytic = lastValueAnalytic.getVariance();
-
-//		System.out.println("Analytic average......: " + FORMATTERPOSITIVE.format(averageAnalytic));
-//		System.out.println("Analytic variance.....: " + FORMATTERPOSITIVE.format(varianceAnalytic));
-
-//		System.out.println();
-//
-//		System.out.println("\t\t\t Value \t\t Error \n");
 
 		for (int i = 0; i < numberOfExperiments; i++) {
 

@@ -21,6 +21,7 @@ public class CallTest {
 
 	static final DecimalFormat FORMATTERPOSITIVE = new DecimalFormat("0.0000");
 	static final DecimalFormat FORMATTERPERCENTAGE = new DecimalFormat("0.000%");
+	static final DecimalFormat FORMATTERPERCENTAGEDATA = new DecimalFormat("0.00%");
 
 	/**
 	 * @param args
@@ -35,33 +36,46 @@ public class CallTest {
 
 		int numberOfExperiments = 10;
 
-		double sumStandardEulerPrice = 0.0;
-		double sumTransformEulerPrice = 0.0;
-
-		double sumStandardEulerError = 0.0;
-		double sumTransformEulerError = 0.0;
-
 		TimeDiscretization times = new TimeDiscretizationFromArray(initialTime, numberOfTimeSteps, timeStep);
 
 		double initialValue = 100.0;
-		double riskFree = 0.1;
+		double riskFree = 0.05;
 		double sigma = 0.2;
 
 		double strike = 100.0;
 		double maturity = finalTime;
 
-		double analyticPrice = AnalyticFormulas.blackScholesOptionValue(initialValue, riskFree, sigma, maturity,
-				strike);
-
 		// Let's ceate the object CallOption
-		final CallOption call = new CallOption(maturity, strike);
+		final CallOption call = new CallOption(strike, maturity);
 
 		// We need the discount factor as RandomVariable
 		RandomVariable discountFactor = new RandomVariableFromDoubleArray(Math.exp(-riskFree * maturity));
 
-		System.out.println("Number of experiments: " + numberOfExperiments + "\n");
+		double analyticPrice = AnalyticFormulas.blackScholesOptionValue(initialValue, riskFree, sigma, maturity,
+				strike);
 
-		// System.out.println("\t\t\t\t Price \t Error \n");
+		System.out.println("Data: \n");
+		System.out.println("Risk free rate..........: " + FORMATTERPERCENTAGEDATA.format(riskFree));
+		System.out.println("Std. deviation..........: " + FORMATTERPERCENTAGEDATA.format(sigma));
+		System.out.println("Initial value...........: " + initialValue);
+		System.out.println("Option strike...........: " + strike);
+		System.out.println("Option maturity.........: " + maturity);
+		System.out.println("Analytic price BS.......: " + FORMATTERPOSITIVE.format(analyticPrice));
+
+		System.out.println("---------------------------------------------------------------------------------------\n");
+
+		// at each loop we increase the number of paths of a factor 10
+		for (int j = 0; j < 1; j++) {
+
+			double sumStandardEulerPrice = 0.0;
+			double sumTransformEulerPrice = 0.0;
+
+			double sumStandardEulerError = 0.0;
+			double sumTransformEulerError = 0.0;
+
+			System.out.println("Number of experiments...: " + numberOfExperiments);
+			System.out.println("Number of paths.........: " + numberOfPaths);
+			System.out.println("Number of time steps....: " + numberOfTimeSteps + "\n");
 
 		for (int i = 0; i < numberOfExperiments; i++) {
 
@@ -79,17 +93,6 @@ public class CallTest {
 			sumStandardEulerPrice += priceStandardEuler;
 			sumTransformEulerPrice += priceTransformEuler;
 
-//		System.out.println();
-//		System.out.println("Analytic price BS............: " + FORMATTERPOSITIVE.format(analyticPrice) + "\t"
-//				+ FORMATTERPERCENTAGE.format(Math.abs(analyticPrice - analyticPrice) / analyticPrice));
-//		System.out.println("Standard Euler Process.......: " + FORMATTERPOSITIVE.format(priceStandardEuler) + "\t"
-//				+ FORMATTERPERCENTAGE.format(Math.abs(analyticPrice - priceStandardEuler) / analyticPrice));
-//		System.out
-//				.println("Log Euler Process............: " + FORMATTERPOSITIVE.format(priceTransformEuler) + "\t"
-//				+ FORMATTERPERCENTAGE.format(Math.abs(analyticPrice - priceTransformEuler) / analyticPrice));
-//
-//		System.out.println();
-
 		}
 
 		double averageStandardEulerError = sumStandardEulerError / numberOfExperiments;
@@ -98,17 +101,26 @@ public class CallTest {
 		double averageStandardEulerPrice = sumStandardEulerPrice / numberOfExperiments;
 		double averageTransformEulerPrice = sumTransformEulerPrice / numberOfExperiments;
 
-		System.out.println("Analytic price BS.....................: " + FORMATTERPOSITIVE.format(analyticPrice));
+		double standardEulerError = Math.abs(analyticPrice - averageStandardEulerPrice) / analyticPrice;
+		double transformEulerError = Math.abs(analyticPrice - averageTransformEulerPrice) / analyticPrice;
 
 		System.out.println(
-				"Average price standard Euler scheme...: " + FORMATTERPOSITIVE.format(averageStandardEulerPrice));
+				"Average price standard Euler scheme...: " + FORMATTERPOSITIVE.format(averageStandardEulerPrice)
+						+ "\t error: " + FORMATTERPERCENTAGE.format(standardEulerError));
 		System.out.println(
-				"Average price log Euler scheme........: " + FORMATTERPOSITIVE.format(averageTransformEulerPrice));
+				"Average price log Euler scheme........: " + FORMATTERPOSITIVE.format(averageTransformEulerPrice)
+						+ "\t error: " + FORMATTERPERCENTAGE.format(transformEulerError));
 		System.out.println(
 				"Average error standard Euler scheme...: " + FORMATTERPERCENTAGE.format(averageStandardEulerError));
 		System.out.println(
 				"Average error log Euler scheme........: " + FORMATTERPERCENTAGE.format(averageTransformEulerError));
 
+		System.out.println("---------------------------------------------------------------------------------------\n");
+
+		numberOfPaths *= 10;
+
 	}
+
+}
 
 }

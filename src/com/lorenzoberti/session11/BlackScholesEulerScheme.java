@@ -23,10 +23,21 @@ public class BlackScholesEulerScheme extends AbstractEulerScheme {
 		this.mu = mu;
 		this.sigma = sigma;
 
+		// here we do not use transformation: we set transform and inverseTransform
+		// equal to the identity function
 		this.transform = (x -> x);
 		this.inverseTransform = (x -> x);
+	}
 
+	public BlackScholesEulerScheme(BrownianMotionMultiD brownian, double mu, double sigma, double initialValue) {
+		super(brownian, initialValue);
+		this.mu = mu;
+		this.sigma = sigma;
 
+		// here we do not use transformation: we set transform and inverseTransform
+		// equal to the identity function
+		this.transform = (x -> x);
+		this.inverseTransform = (x -> x);
 	}
 
 	@Override
