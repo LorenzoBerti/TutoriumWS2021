@@ -33,14 +33,14 @@ public class TestProcess {
 		double timeStep = 0.01;
 		int numberOfTimeSteps = (int) (finalTime / timeStep);
 
-		int numberOfExperiments = 5;
+		int numberOfExperiments = 3;
 
 		TimeDiscretization times = new TimeDiscretizationFromArray(initialTime, numberOfTimeSteps, timeStep);
 
-		BrownianMotionMultiD brownian = new BrownianMotionD(times, 1, numberOfPaths);
+		// BrownianMotionMultiD brownian = new BrownianMotionD(times, 1, numberOfPaths);
 
 		double initialValue = 100.0;
-		double mu = 0.1;
+		double mu = 0.05;
 		double sigma = 0.2;
 
 		DoubleUnaryOperator analyticProcess = x -> {
@@ -51,22 +51,39 @@ public class TestProcess {
 
 		};
 
-		AbstractEulerScheme euler = new BlackScholesEulerScheme(numberOfPaths, initialValue, times, mu, sigma);
-		AbstractEulerScheme logEuler = new LogEulerScheme(numberOfPaths, initialValue, times, mu, sigma);
+//		AbstractEulerScheme euler = new BlackScholesEulerScheme(numberOfPaths, initialValue, times, mu, sigma);
+//		AbstractEulerScheme logEuler = new LogEulerScheme(numberOfPaths, initialValue, times, mu, sigma);
+//
+//		RandomVariable lastValueAnalytic = brownian.getBrownianMotionAtSpecificTime(0, finalTime)
+//				.apply(analyticProcess);
+//		double averageAnalytic = lastValueAnalytic.getAverage();
+//		double varianceAnalytic = lastValueAnalytic.getVariance();
 
-		RandomVariable lastValueAnalytic = brownian.getBrownianMotionAtSpecificTime(0, finalTime)
-				.apply(analyticProcess);
-		double averageAnalytic = lastValueAnalytic.getAverage();
-		double varianceAnalytic = lastValueAnalytic.getVariance();
+//		System.out.println("Analytic average......: " + FORMATTERPOSITIVE.format(averageAnalytic));
+//		System.out.println("Analytic variance.....: " + FORMATTERPOSITIVE.format(varianceAnalytic));
 
-		System.out.println("Analytic average......: " + FORMATTERPOSITIVE.format(averageAnalytic));
-		System.out.println("Analytic variance.....: " + FORMATTERPOSITIVE.format(varianceAnalytic));
-
-		System.out.println();
-
-		System.out.println("\t\t\t Value \t\t Error \n");
+//		System.out.println();
+//
+//		System.out.println("\t\t\t Value \t\t Error \n");
 
 		for (int i = 0; i < numberOfExperiments; i++) {
+
+			BrownianMotionMultiD brownian = new BrownianMotionD(times, 1, numberOfPaths);
+
+			AbstractEulerScheme euler = new BlackScholesEulerScheme(numberOfPaths, initialValue, times, mu, sigma);
+			AbstractEulerScheme logEuler = new LogEulerScheme(numberOfPaths, initialValue, times, mu, sigma);
+
+			RandomVariable lastValueAnalytic = brownian.getBrownianMotionAtSpecificTime(0, finalTime)
+					.apply(analyticProcess);
+			double averageAnalytic = lastValueAnalytic.getAverage();
+			double varianceAnalytic = lastValueAnalytic.getVariance();
+
+			System.out.println("Analytic average......: " + FORMATTERPOSITIVE.format(averageAnalytic));
+			System.out.println("Analytic variance.....: " + FORMATTERPOSITIVE.format(varianceAnalytic));
+
+			System.out.println();
+
+			System.out.println("\t\t\t Value \t\t Error \n");
 
 			RandomVariable lastValueEuler = euler.getProcessAtGivenTime(finalTime);
 			RandomVariable lastValueLogEuler = logEuler.getProcessAtGivenTime(finalTime);

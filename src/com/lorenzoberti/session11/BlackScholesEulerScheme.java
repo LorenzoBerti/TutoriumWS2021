@@ -23,6 +23,9 @@ public class BlackScholesEulerScheme extends AbstractEulerScheme {
 		this.mu = mu;
 		this.sigma = sigma;
 
+		this.transform = (x -> x);
+		this.inverseTransform = (x -> x);
+
 
 	}
 

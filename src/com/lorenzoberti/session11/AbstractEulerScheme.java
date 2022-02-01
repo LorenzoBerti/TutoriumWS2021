@@ -33,6 +33,11 @@ public abstract class AbstractEulerScheme implements ProcessSimulation {
 	protected abstract RandomVariable getDrift(RandomVariable lastRealization, int timeIndex);
 	protected abstract RandomVariable getDiffusion(RandomVariable lastRealization, int timeIndex);
 
+	// transform: exp()
+	// inverseTransform: log()
+	protected DoubleUnaryOperator transform;
+	protected DoubleUnaryOperator inverseTransform;
+
 	protected AbstractEulerScheme(int numberOfSimulations, double initialValue, TimeDiscretization times) {
 		this.initialValue = initialValue;
 		this.times = times;
@@ -115,10 +120,11 @@ public abstract class AbstractEulerScheme implements ProcessSimulation {
 
 		for (int i = 0; i < times.getNumberOfTimes() - 1; i++) {
 
-			drift = getDrift(allPaths[i], i);
-			diffusion = getDiffusion(allPaths[i], i);
-
-			allPaths[i + 1] = allPaths[i].add(drift).add(diffusion);
+			RandomVariable inverseOfLastSimulation = allPaths[i].apply(inverseTransform);
+			drift = getDrift(inverseOfLastSimulation, i);
+			diffusion = getDiffusion(inverseOfLastSimulation, i);
+			RandomVariable simulatedInverseTransform = inverseOfLastSimulation.add(drift).add(diffusion);
+			allPaths[i + 1] = simulatedInverseTransform.apply(transform);
 
 		}
 
